@@ -6,6 +6,7 @@ const { DB_URI } = require('./config/config');
 const authRoutes = require('./routes/authRoutes');
 const dotenv = require('dotenv');
 const productRoutes = require('./routes/productRoutes');
+const orderRoutes = require('./routes/orderRoutes');
 const path = require('path');
 const app = express();
 
@@ -33,6 +34,8 @@ app.use('/api', authRoutes); // Use /api prefix for all authentication routes
 
 // Use product routes
 app.use('/api', productRoutes);
+
+app.use('/api', orderRoutes);
 
 
 // Error handling middleware (optional)
