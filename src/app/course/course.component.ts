@@ -47,17 +47,21 @@ export class CourseComponent implements OnInit, AfterViewInit {
 
   onBookNow(course: any): void {
     const userId = this.authService.getUserIdFromToken();  // Get the user ID dynamically from the token
-
+    console.log('Course:', course);
+    console.log('Course ID:', course._id); 
     // Check if the user is logged in and has a valid user ID
     if (!userId) {
       console.error('User is not logged in or token is invalid');
       return;
     }
-
+    if (!course._id) {
+      console.error('Course ID is undefined:', course);
+      return;
+    }
     // Add course to cart with dynamic user ID
     this.cartService.addToCart({
       userId: userId,  // Fetch the user ID dynamically
-      courseId: course.id,
+      courseId: course._id,
       title: course.title,
       price: course.price,
       description: course.description,

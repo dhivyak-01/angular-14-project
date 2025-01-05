@@ -22,7 +22,11 @@ export class AuthService {
     localStorage.setItem('authToken', response.token); // Save token in localStorage
     localStorage.setItem('userId', response.userId);  // Save user ID in localStorage
     localStorage.setItem('name', response.name);  // Save user's name
-    localStorage.setItem('phoneNumber', response.phoneNumber);  // Save user's phone number
+    localStorage.setItem('phoneNumber', response.phoneNumber); 
+    console.log('authToken', response.token); // Save token in localStorage
+    console.log('userId', response.userId);  // Save user ID in localStorage
+    console.log('name', response.name);  // Save user's name
+    console.log('phoneNumber', response.phoneNumber);  // Save user's phone number
   }
 
   // Get the JWT token from localStorage
