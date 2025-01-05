@@ -10,6 +10,7 @@ const orderRoutes = require('./routes/orderRoutes');
 const adminauthRoutes = require('./routes/adminauth');
 const authenticateAdmin = require('./middleware/authAdminMiddleware');
 const adminAuthRouter = require('./routes/adminauth');
+const allordersRouter = require('./routes/getallorder');
 const path = require('path');
 const app = express();
 
@@ -48,6 +49,8 @@ app.get('/api/adminpanel', authenticateAdmin, (req, res) => {
 });
 
 app.use('/api/admin', adminAuthRouter);
+
+app.use('/api', allordersRouter);
 
 // Error handling middleware (optional)
 app.use((err, req, res, next) => {

@@ -21,28 +21,39 @@
               type="checkbox" 
               />
           </th>
-          <th>Title</th>
-          <th>Image</th>
-          <th>Description</th>
-          <th>Duration</th>
-          <th>Lectures</th>
-          <th>Price</th>
+          <th>Order ID</th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Status</th>
+        <th>Total Amount</th>
+        <th>Payment Method</th>
+        <th>Order Date</th>
+        <th>Shipping Address</th>
+        <th>Products</th>
           <th style="width: 15%;">Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr *ngFor="let order of orders">
           <td>
             <input 
               type="checkbox" 
              />
           </td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>{{ order._id }}</td>
+          <td>{{ order.name }}</td>
+          <td>{{ order.phoneNumber }}</td>
+          <td>{{ order.shippingAddress.street }}, {{ order.shippingAddress.city }}, {{ order.shippingAddress.state }} - {{ order.shippingAddress.postalCode }}, {{ order.shippingAddress.country }}</td>
+          <td>{{ order.totalAmount | currency }}</td>
+          <td>{{ order.orderDate | date:'short' }}</td>
+          <td>{{ order.status }}</td>
+        <td>
+          <ul>
+            <li *ngFor="let product of order.products">
+              Product ID: {{ product.productId }} - Quantity: {{ product.quantity }}
+            </li>
+          </ul>
+        </td>
           <td>
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#courseModal">View</button>
             <button class="btn btn-danger"style="margin-left: 5px;">
