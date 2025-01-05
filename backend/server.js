@@ -7,6 +7,9 @@ const authRoutes = require('./routes/authRoutes');
 const dotenv = require('dotenv');
 const productRoutes = require('./routes/productRoutes');
 const orderRoutes = require('./routes/orderRoutes');
+const adminauthRoutes = require('./routes/adminauth');
+const authenticateAdmin = require('./middleware/authAdminMiddleware');
+const adminAuthRouter = require('./routes/adminauth');
 const path = require('path');
 const app = express();
 
@@ -37,6 +40,14 @@ app.use('/api', productRoutes);
 
 app.use('/api', orderRoutes);
 
+app.use('/admin', adminauthRoutes);
+
+// Protected admin route using JWT middleware
+app.get('/api/adminpanel', authenticateAdmin, (req, res) => {
+  res.status(200).json({ message: 'Welcome to the Admin Dashboard!', admin: req.admin });
+});
+
+app.use('/api/admin', adminAuthRouter);
 
 // Error handling middleware (optional)
 app.use((err, req, res, next) => {

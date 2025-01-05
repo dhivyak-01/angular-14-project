@@ -105,6 +105,8 @@ const loginUser = async (req, res) => {
       expiresIn: 3600, // 1 hour in seconds
       userId: user._id,
       role: user.role,
+      name: user.username,
+      phoneNumber: user.phoneNumber,
     });
   } catch (error) {
     console.error(error);

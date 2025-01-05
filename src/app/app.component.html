@@ -53,8 +53,8 @@
 </div> -->
 
  <div class="header-section">
-  <div class="header-main" [ngClass]="{'sticky': isSticky}">
-    <div class="container">
+  <div class="header-main" *ngIf="!isAdminPage" [ngClass]="{'sticky': isSticky}">
+    <div class="container" >
       <nav class="header-main-wrapper navbar-expand-lg navbar-light "  [ngClass]="{
         'sticky-wrapper': isSticky, 
         'normal-wrapper': !isSticky
@@ -80,14 +80,16 @@
               <a [routerLink]="['/bookings']" [routerLinkActive]="['active']">My Bookings</a>
             </li>
             <li [routerLinkActive]="['active']">
-              <a [routerLink]="['/contact']" [routerLinkActive]="['active']">Contact</a>
+              <a [routerLink]="['/cart']" [routerLinkActive]="['active']">
+                <i class="fa fa-shopping-cart"></i>
+              </a>
             </li>
           </ul>
         </div>
         <div class="header-sign-in-up d-lg-block">
           <ul>
-            <li><a class="sign-in" routerLink="login.html">Sign In</a></li>
-            <li><a class="sign-up" routerLink="register.html">Sign Up</a></li>
+            <li><a class="sign-in" [routerLink]="['/login']">Sign In</a></li>
+            <li><a class="sign-up" [routerLink]="['/register']">Sign Up</a></li>
           </ul>
         </div>
         </div>

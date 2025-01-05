@@ -1,0 +1,214 @@
+<!-- CartComponent HTML -->
+<div class="tab-pane fade show active" *ngIf="cartItems.length > 0; else noItems" id="tabs1">
+  <div class="courses-wrapper">
+    <div class="row">
+      <div *ngFor="let course of cartItems" class="col-lg-4 col-md-6">
+        <div class="single-courses">
+          <div class="courses-images">
+            <a [routerLink]="['/course-details', course.id]">
+              <img [src]="'http://localhost:3000/' + course.image" [alt]="course.title">
+            </a>
+          </div>
+          <div class="courses-content">
+            <h4 class="title">
+              <a [routerLink]="['/course-details', course.id]">{{ course.title }}</a>
+            </h4>
+            <p class="description">{{ course.description }}</p>
+            <div class="courses-meta d-flex justify-content-between">
+              <span><i class="icofont-clock-time"></i> {{ course.duration }}</span>
+              <span><i class="icofont-read-book"></i> {{ course.lectures }} Lectures</span>
+            </div>
+            <div class="courses-price-review">
+              <div class="courses-price">
+                <span class="sale-price">{{ course.price | currency }}</span>
+              </div>
+              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#orderModal">Book Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noItems>
+  <p>Your cart is empty.</p>
+</ng-template>
+
+<!-- Order Modal (for shipping details and payment method) -->
+<div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="orderModalLabel">Place Your Booking</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #orderForm="ngForm" (ngSubmit)="submitOrder(orderForm)">
+          <!-- Shipping Address -->
+          <div class="mb-3">
+            <label for="street" class="form-label">Street</label>
+            <input type="text" class="form-control" id="street" required [(ngModel)]="order.shippingAddress.street" name="street" />
+          </div>
+          <div class="mb-3">
+            <label for="city" class="form-label">City</label>
+            <input type="text" class="form-control" id="city" required [(ngModel)]="order.shippingAddress.city" name="city" />
+          </div>
+          <div class="mb-3">
+            <label for="state" class="form-label">State</label>
+            <input type="text" class="form-control" id="state" required [(ngModel)]="order.shippingAddress.state" name="state" />
+          </div>
+          <div class="mb-3">
+            <label for="postalCode" class="form-label">Postal Code</label>
+            <input type="text" class="form-control" id="postalCode" required [(ngModel)]="order.shippingAddress.postalCode" name="postalCode" />
+          </div>
+          <div class="mb-3">
+            <label for="country" class="form-label">Country</label>
+            <input type="text" class="form-control" id="country" required [(ngModel)]="order.shippingAddress.country" name="country" />
+          </div>
+
+          <!-- Payment Method -->
+          <div class="mb-3">
+            <label for="paymentMethod" class="form-label">Payment Method</label>
+            <select class="form-control" id="paymentMethod" required [(ngModel)]="order.paymentMethod" name="paymentMethod">
+              <option value="credit_card">Credit Card</option>
+              <option value="paypal">PayPal</option>
+              <option value="bank_transfer">Bank Transfer</option>
+            </select>
+          </div>
+
+          <!-- Total Amount -->
+          <div class="mb-3">
+            <label class="form-label">Total Amount</label>
+            <input type="text" class="form-control" [value]="order.totalAmount | currency" disabled />
+          </div>
+
+          <button type="submit" class="btn btn-primary">Place Order</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <!-- <div class="tab-pane fade show active"  *ngIf="cartItems.length > 0; else noItems" id="tabs1">
+    <div class="courses-wrapper">
+      <div class="row">
+        <div *ngFor="let course of cartItems" class="col-lg-4 col-md-6">
+          <div class="single-courses">
+            <div class="courses-images">
+              
+              <a [routerLink]="['/course-details', course.id]" >
+                <img [src]="'http://localhost:3000/' + course.image" [alt]="course.title">
+              </a>
+            </div>
+            <div class="courses-content">
+              <h4 class="title">
+                <a [routerLink]="['/course-details', course.id]" >{{ course.title }}</a>
+              </h4>
+              <p class="description">{{ course.description }}</p>
+              <div class="courses-meta d-flex justify-content-between">
+                <span><i class="icofont-clock-time"></i> {{ course.duration }}</span>
+                <span><i class="icofont-read-book"></i> {{ course.lectures }} Lectures</span>
+              </div>
+              <div class="courses-price-review">
+                <div class="courses-price">
+                  <span class="sale-price">{{ course.price | currency }}</span>
+                </div>
+                <button 
+                  class="btn btn-primary" 
+                  data-bs-toggle="modal" data-bs-target="#orderModal"  >
+                  Book Now
+                </button> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #noItems>
+    <p>Your cart is empty.</p>
+  </ng-template>
+  
+
+  
+  <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="orderModalLabel">Place Your Booking</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form  #orderForm="ngForm">
+
+            <div class="mb-3">
+              <label for="address" class="form-label">Street</label>
+              <input
+              type="text"
+                class="form-control"
+                id="address"
+                required
+                name="address"
+             />
+            </div>
+            <div class="mb-3">
+              <label for="address" class="form-label">City</label>
+              <input
+              type="text"
+                class="form-control"
+                id="address"
+                required
+                name="address"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="address" class="form-label">State</label>
+              <select class="form-control" name="paymentMethod">
+                <option value="Tamilnadu">Tamil nadu</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Karnataka">Karnataka</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="address" class="form-label">Country</label>
+              <select class="form-control" name="paymentMethod">
+                <option value="India">India</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="address" class="form-label">Postal Code</label>
+              <input
+              type="number"
+                class="form-control"
+                id="address"
+                required
+                name="address"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="paymentMethod" class="form-label">Payment Method</label>
+              <select class="form-control" name="paymentMethod">
+                <option value="cod">Cash on Delivery</option>
+                <option value="credit_card">Credit Card</option>
+                <option value="paypal">PayPal</option>
+              </select>
+            </div>
+            <div class="mb-3 text-center">
+              <button type="submit" class="btn btn-primary">Place Booking</button> 
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div> -->

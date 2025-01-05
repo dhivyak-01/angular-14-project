@@ -1,0 +1,54 @@
+  <div class="section section-padding">
+    <div class="container">
+      <div class="register-login-wrapper">
+        <div class="row align-items-center">
+          <div class="col">
+            <div class="register-login-form">
+              <h3 class="title">Login <span>Now</span></h3>
+  
+              <div class="form-wrapper">
+                <!-- Display error message if login fails -->
+                <div *ngIf="errorMessage" class="alert alert-danger">
+                  {{ errorMessage }}
+                </div>
+  
+                <!-- Login Form -->
+                <form (ngSubmit)="onSubmit()">
+                  <div class="single-form">
+                    <input
+                      #usernameInput
+                      type="text"
+                      placeholder="Username"
+                      [(ngModel)]="user.username"
+                      name="username"
+                      required
+                      (keydown.enter)="focusNext('passwordInput')"
+                    />
+                  </div>
+                  <div class="single-form">
+                    <input
+                      #passwordInput
+                      type="password"
+                      placeholder="Password"
+                      [(ngModel)]="user.password"
+                      name="password"
+                      required
+                    />
+                  </div>
+                  <div class="single-form">
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-hover-dark w-100"
+                      [disabled]="!user.username || !user.password"
+                    >
+                      Login
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

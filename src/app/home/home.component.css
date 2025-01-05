@@ -424,4 +424,13 @@ p:last-child {
   .courses-wrapper .courses-price-review button:hover {
     background-color: #218838;
   }
-  
+ 
+  .btn {
+    position: relative;
+    padding-top: 17px;
+    z-index: 2;
+    overflow: hidden;
+    width: 135px;
+    height: 52px;
+    border-radius: 10px;
+}

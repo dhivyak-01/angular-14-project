@@ -1,0 +1,66 @@
+<div class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <!-- Navbar Brand (Mobile only) -->
+      <a class="navbar-brand d-block d-md-none" href="../index.html">
+        <img src="../assets/images/logo.png" alt="Logo">
+      </a>
+  
+      <!-- Navbar items (Right-aligned) -->
+      <ul class="navbar-nav navbar-right-wrap ms-auto d-flex align-items-center">
+        <!-- Logout Button -->
+        <li class="nav-item">
+          <button class="btn btn-danger" (click)="logout()">Logout</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <a href="#" class="sidebar-brand fs-4 fw-bold text-primary">
+        <i class="fa fa-cogs"></i><span class="admin-title">Administration</span>
+      </a>
+    </div>
+  
+    <div class="sidebar-links">
+     
+      <button class="sidebar-btn" (click)="activePage = 'Dashboard'">
+        <i class="fa fa-tachometer-alt"></i> Dashboard
+      </button>
+  
+      <div class="dropdown">
+        <button class="sidebar-btn dropdown-toggle" type="button" id="courseDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa fa-book"></i> Course
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="courseDropdown">
+          
+          <li>
+            <a class="dropdown-item" (click)="activePage = 'Add Course'">Add Course</a>
+          </li>
+         
+          <li>
+            <a class="dropdown-item" (click)="activePage = 'Manage Course'">Manage Course</a>
+          </li>
+        </ul>
+      </div>
+      
+      <button class="sidebar-btn" (click)="activePage = 'Banner'">
+        <i class="fa fa-image"></i> Banner
+      </button>
+  
+     
+      <button class="sidebar-btn" (click)="activePage = 'Bookings'">
+        <i class="fa fa-calendar-check"></i> Bookings
+      </button>
+    </div>
+  </div>
+  
+  <div class="main-content">
+    <div [ngSwitch]="activePage">
+      <app-dashboard *ngSwitchCase="'Dashboard'"></app-dashboard>
+      <app-addcourse *ngSwitchCase="'Add Course'"></app-addcourse>
+      <app-managecourse *ngSwitchCase="'Manage Course'"></app-managecourse>
+      <app-banner *ngSwitchCase="'Banner'"></app-banner>
+      <app-adminbookings *ngSwitchCase="'Bookings'"></app-adminbookings>
+    </div>
+  </div>
