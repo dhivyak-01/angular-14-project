@@ -27,6 +27,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from './modal/modal.component';
 import { CartComponent } from './cart/cart.component';
+import { ManagebannerComponent } from './managebanner/managebanner.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +45,8 @@ import { CartComponent } from './cart/cart.component';
     BannerComponent,
     AdminbookingsComponent,
     ModalComponent,
-    CartComponent
+    CartComponent,
+    ManagebannerComponent
   ],
   imports: [
     BrowserModule,

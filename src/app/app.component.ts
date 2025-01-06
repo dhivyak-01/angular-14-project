@@ -31,7 +31,7 @@ export class AppComponent {
         console.log('Navigation event:', event);
         console.log('Navigating to:', event.url);
         // Hide navbar on the admin login page and any route starting with /adminpanel
-        this.isAdminPage = event.url.includes('/adminlogin') || event.url.startsWith('/adminpanel') || event.url.startsWith('/manage') || event.url.startsWith('/add') || event.url.startsWith('/banner') || event.url.startsWith('/adminbookings') || event.url.startsWith('/dashboard') || event.url.startsWith('/admincourse');
+        this.isAdminPage = event.url.includes('/adminlogin') || event.url.startsWith('/adminpanel') || event.url.startsWith('/manage') || event.url.startsWith('/add') || event.url.startsWith('/banner') || event.url.startsWith('/adminbookings') || event.url.startsWith('/dashboard') || event.url.startsWith('/admincourse') || event.url.startsWith('/managebanner');
         this.isBookingsPage = event.url.includes('/adminbookings');
         console.log('isBookingsPage:', this.isBookingsPage);
       }

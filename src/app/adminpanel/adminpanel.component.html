@@ -43,15 +43,26 @@
           </li>
         </ul>
       </div>
-      
-      <button class="sidebar-btn" (click)="activePage = 'Banner'">
-        <i class="fa fa-image"></i> Banner
-      </button>
-  
+      <div class="dropdown">
+        <button class="sidebar-btn dropdown-toggle" type="button" id="courseDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa fa-image"></i> Banner
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="courseDropdown">
+          
+          <li>
+            <a class="dropdown-item" (click)="activePage = 'Banner'">Add Banner</a>
+          </li>
+         
+          <li>
+            <a class="dropdown-item" (click)="activePage = 'Manage Banner'">Manage Banner</a>
+          </li>
+        </ul>
+      </div>
      
       <button class="sidebar-btn" (click)="activePage = 'Bookings'">
         <i class="fa fa-calendar-check"></i> Bookings
       </button>
+
     </div>
   </div>
   
@@ -62,5 +73,6 @@
       <app-managecourse *ngSwitchCase="'Manage Course'"></app-managecourse>
       <app-banner *ngSwitchCase="'Banner'"></app-banner>
       <app-adminbookings *ngSwitchCase="'Bookings'"></app-adminbookings>
+      <app-managebanner *ngSwitchCase="'Manage Banner'"></app-managebanner>
     </div>
   </div>

@@ -14,6 +14,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { BannerComponent } from './banner/banner.component';
 import { AdminbookingsComponent } from './adminbookings/adminbookings.component';
 import { CartComponent } from './cart/cart.component';
+import { ManagebannerComponent } from './managebanner/managebanner.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'banner', component: BannerComponent },
   { path: 'adminbookings', component: AdminbookingsComponent },
+  { path: 'managebanner', component: ManagebannerComponent },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
 ];
 
