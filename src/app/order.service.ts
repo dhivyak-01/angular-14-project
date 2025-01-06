@@ -7,6 +7,7 @@ import { AuthService } from './auth.service';
 
 interface Product {
   productId: string;
+  image: string;
   quantity: number;
   _id: string;
 }
@@ -97,7 +98,7 @@ export class OrderService {
       'Content-Type': 'application/json'
     });
     console.log('Authorization Header:', headers);
-    console.log('Order Payload:', orderPayload);  // Log the order payload to the console
+    console.log('Order Payload from orderservice:', orderPayload);  // Log the order payload to the console
     
     // Send the POST request to place the order
     return this.http.post(this.apiUrl, orderPayload, { headers });

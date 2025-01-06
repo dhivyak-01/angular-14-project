@@ -21,17 +21,21 @@ export class AppComponent {
   }
 
   isAdminPage: boolean = false;  // This flag will decide whether navbar is shown
-
-  constructor(private router: Router) {}
+  isBookingsPage: boolean = false;
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
     // Listen to router events to detect route changes
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
+        console.log('Navigation event:', event);
+        console.log('Navigating to:', event.url);
         // Hide navbar on the admin login page and any route starting with /adminpanel
         this.isAdminPage = event.url.includes('/adminlogin') || event.url.startsWith('/adminpanel') || event.url.startsWith('/manage') || event.url.startsWith('/add') || event.url.startsWith('/banner') || event.url.startsWith('/adminbookings') || event.url.startsWith('/dashboard') || event.url.startsWith('/admincourse');
-        
+        this.isBookingsPage = event.url.includes('/adminbookings');
+        console.log('isBookingsPage:', this.isBookingsPage);
       }
     });
+
   }
 }

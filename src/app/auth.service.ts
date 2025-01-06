@@ -23,10 +23,12 @@ export class AuthService {
     localStorage.setItem('userId', response.userId);  // Save user ID in localStorage
     localStorage.setItem('name', response.name);  // Save user's name
     localStorage.setItem('phoneNumber', response.phoneNumber); 
+    localStorage.setItem('image', response.image); 
     console.log('authToken', response.token); // Save token in localStorage
     console.log('userId', response.userId);  // Save user ID in localStorage
     console.log('name', response.name);  // Save user's name
     console.log('phoneNumber', response.phoneNumber);  // Save user's phone number
+    console.log('image', response.image); 
   }
 
   // Get the JWT token from localStorage
@@ -47,6 +49,10 @@ export class AuthService {
   // Get the user's phone number from localStorage
   getPhoneNumber(): string {
     return localStorage.getItem('phoneNumber') || '';
+  }
+   // Get the user's phone number from localStorage
+   getImage(): string {
+    return localStorage.getItem('image') || '';
   }
   
   // Get the user ID from the decoded JWT token

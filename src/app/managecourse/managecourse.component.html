@@ -40,7 +40,7 @@
               (change)="handleSelect(course._id)" />
           </td>
           <td>{{ course.title }}</td>
-          <td>{{ course.image }}</td>
+          <td><img [src]="'http://localhost:3000/' + course.image" [alt]="course.title"></td>
           <td>{{ course.description }}</td>
           <td>{{ course.duration }}</td>
           <td>{{ course.lectures }}</td>

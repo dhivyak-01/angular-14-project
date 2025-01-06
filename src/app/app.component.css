@@ -312,7 +312,9 @@ a {
 }
 
 
-
+.header-section-bookings {
+  width: 118% !important; /* Apply width of 118% when on Bookings page */
+}
 
 
 

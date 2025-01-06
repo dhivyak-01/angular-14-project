@@ -14,3 +14,7 @@
 body .modal-backdrop {
     display: none !important;
   }
+
+  img{
+    width: 90%;
+  }

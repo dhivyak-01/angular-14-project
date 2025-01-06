@@ -4,6 +4,7 @@ import { OrderService } from '../order.service';  // Import OrderService
 
 interface Product {
   productId: string;
+  image: string;
   quantity: number;
   _id: string;
 }
@@ -55,10 +56,21 @@ export class BookingsComponent implements OnInit {
     this.fetchOrders();  // Fetch orders when the component initializes
   }
 
+  // fetchOrders(): void {
+  //   this.orderService.getOrders().subscribe(
+  //     (response: OrdersResponse) => {
+  //       console.log('Fetched orders from bookings:', response);
+  //       this.orders = response.orders;  // This now works correctly since `response` is typed
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching orders:', error);
+  //     }
+  //   );
+  // }
   fetchOrders(): void {
     this.orderService.getOrders().subscribe(
-      (response: OrdersResponse) => {
-        console.log('Fetched orders:', response);
+      (response: OrdersResponse) => {  // Correct type assignment here
+        console.log('Fetched orders from bookings:', response);
         this.orders = response.orders;  // This now works correctly since `response` is typed
       },
       (error) => {

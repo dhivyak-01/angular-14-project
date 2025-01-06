@@ -19,6 +19,7 @@ export class CartComponent implements OnInit, AfterViewInit {
   order: any = {
     name: '', 
     phoneNumber: '',
+    image: '',
     shippingAddress: {
       street: '',
       city: '',
@@ -62,11 +63,26 @@ export class CartComponent implements OnInit, AfterViewInit {
   }
 
   // Populating products in the order payload
+  // populateProducts(): void {
+  //   this.order.products = this.cartItems.map(item => ({
+  //     productId: item.courseId,
+  //     image: item.image,
+  //     quantity: item.quantity || 1
+  //   }));
+  // }
   populateProducts(): void {
-    this.order.products = this.cartItems.map(item => ({
-      productId: item.courseId,
-      quantity: item.quantity || 1
-    }));
+    this.order.products = this.cartItems.map(item => {
+      // Log the values for each product
+      console.log('productId:', item.courseId);
+      console.log('image:', item.image);
+      console.log('quantity:', item.quantity || 1);  // Default to 1 if quantity is undefined
+  
+      return {
+        productId: item.courseId,
+        image: item.image,
+        quantity: item.quantity || 1
+      };
+    });
   }
 
   // Calculating the total amount of the cart
@@ -93,12 +109,13 @@ export class CartComponent implements OnInit, AfterViewInit {
         userId,
         name: this.order.name,
         phoneNumber: this.order.phoneNumber,
+        image: this.order.image,
         products: this.order.products,
         shippingAddress: this.order.shippingAddress,
         paymentMethod: this.order.paymentMethod,
         totalAmount: this.order.totalAmount
       };
-      console.log('Order orderPayload', orderPayload);
+      console.log('Order orderPayload cart page', orderPayload);
 
       // Use OrderService to place the order
       this.orderService.placeOrder(orderPayload).subscribe(

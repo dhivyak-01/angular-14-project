@@ -43,6 +43,8 @@ export class AdminbookingsComponent implements OnInit {
     this.ordersService.getOrders().subscribe(
       data => {
         this.orders = data;
+        console.log("all data",data);
+        
       },
       error => {
         console.error('Error fetching orders:', error);

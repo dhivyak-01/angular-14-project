@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 // Define the schema for the products in the order
 const productSchema = new mongoose.Schema({
   productId: mongoose.Schema.Types.ObjectId,
+  image: String,
   quantity: Number,
 });
 

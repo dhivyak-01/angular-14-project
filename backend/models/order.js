@@ -57,6 +57,7 @@ const orderSchema = new mongoose.Schema({
   phoneNumber: String,
   products: [{
     productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
+    image: String,
     quantity: Number
   }],
   shippingAddress: {

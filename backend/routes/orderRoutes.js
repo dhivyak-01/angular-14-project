@@ -1,13 +1,26 @@
 const express = require('express');
+const multer = require('multer');
+const path = require('path');
 const Order = require('../models/order');
 const Product = require('../models/Product');
 const authenticateUser = require('../middleware/auth');
 const authenticateAdmin = require('../middleware/authAdminMiddleware');
 const router = express.Router();
+// Set up Multer to store uploaded files
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');  // Store files in the "uploads" directory
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));  // Unique file name based on timestamp
+  },
+});
 
+const upload = multer({ storage });
 // POST: Place a new order
-router.post('/orders', authenticateUser, async (req, res) => {
+router.post('/orders', authenticateUser, upload.single('image'), async (req, res) => {
   const { userId, name, phoneNumber, products, shippingAddress, paymentMethod, totalAmount } = req.body;
+  const imagePath = req.file ? req.file.path : null;
 
   // Validate required fields
   if (!userId || !name || !phoneNumber || !products || !shippingAddress || !paymentMethod || !totalAmount) {
@@ -36,6 +49,7 @@ router.post('/orders', authenticateUser, async (req, res) => {
       userId,
       name,
       phoneNumber,
+      image: imagePath, 
       products,
       shippingAddress,
       paymentMethod,
@@ -97,37 +111,5 @@ router.get('/orders', authenticateUser, async (req, res) => {
     }
   });
 
-
-//   router.get('/admin/orders', authenticateAdmin, async (req, res) => {
-//     try {
-//       // Fetch all orders (admin can access all orders)
-//       const orders = await Order.find(); // Optionally populate user details
-//       return res.status(200).json({
-//         orders,
-//         total: orders.length
-//       });
-//     } catch (error) {
-//       console.error(error);
-//       return res.status(500).json({ error: 'An unexpected error occurred. Please try again later.' });
-//     }
-//   });
-
-//   // Admin route to delete an order
-// router.delete('/admin/orders/:id', authenticateAdmin, async (req, res) => {
-//   const { id } = req.params;
-  
-//   try {
-//     const order = await Order.findById(id);
-//     if (!order) {
-//       return res.status(404).json({ error: 'Order not found.' });
-//     }
-
-//     await order.remove();
-//     return res.status(200).json({ message: 'Order deleted successfully.' });
-//   } catch (error) {
-//     console.error(error);
-//     return res.status(500).json({ error: 'An error occurred while deleting the order.' });
-//   }
-// });
 
 module.exports = router;

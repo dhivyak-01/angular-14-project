@@ -52,7 +52,7 @@
 <router-outlet></router-outlet>
 </div> -->
 
- <div class="header-section">
+ <div class="header-section" [ngClass]="{'header-section-bookings': isBookingsPage}">
   <div class="header-main" *ngIf="!isAdminPage" [ngClass]="{'sticky': isSticky}">
     <div class="container" >
       <nav class="header-main-wrapper navbar-expand-lg navbar-light "  [ngClass]="{
