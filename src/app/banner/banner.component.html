@@ -1,1 +1,73 @@
-<p>banner works!</p>
+<div class="section section-padding">
+    <div class=" card ps-3">
+        <div class="align-items-start">
+          <h3 class="pt-1 mb-0 title">Create Banner</h3>
+        </div>
+    </div>
+
+    <div class="container">
+      <div class="register-login-wrapper">
+        <div class="row align-items-center">
+          <div class="col">
+            <div class="register-login-form">
+  
+              <div class="form-wrapper">
+               
+                <div *ngIf="errorMessage" class="alert alert-danger">
+                  {{ errorMessage }}
+                </div>
+  
+                <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+                  <div class="single-form">
+                    <label for="title">Banner sub-title</label>
+                    <input type="text" id="title" class="form-control" formControlName="title" />
+                      <div *ngIf="productForm.get('title')?.invalid && productForm.get('title')?.touched" class="text-danger">
+                        sub-title is required.
+                      </div>
+                  </div>
+                  <div class="single-form">
+                    <label for="description">Banner Main-title</label>
+                     <textarea id="description" class="form-control" formControlName="description"></textarea>
+                      <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched" class="text-danger">
+                        Main-title is required.
+                      </div>
+                  </div>
+                  <div class="single-form">
+                    <label for="image">Banner Image</label>
+                    <input type="file" id="image" class="form-control" (change)="onFileChange($event)" />
+                        <div *ngIf="productForm.get('image')?.invalid && productForm.get('image')?.touched" class="text-danger">
+                          Image is required.
+                        </div>
+                  </div>
+                  <div class="single-form">
+                    <label for="content">Banner Content</label>
+                    <input type="text" id="content" class="form-control" formControlName="content" />
+                      <div *ngIf="productForm.get('content')?.invalid && productForm.get('content')?.touched" class="text-danger">
+                        Content is required.
+                      </div>
+                  </div>
+                  <div class="single-form">
+                    <label for="caption">Banner Button Caption</label>
+                    <input type="text" id="caption" class="form-control" formControlName="caption" />
+                      <div *ngIf="productForm.get('caption')?.invalid && productForm.get('caption')?.touched" class="text-danger">
+                        Button Caption is required.
+                      </div>
+                  </div>
+            
+                  <div class="single-form">
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-hover-dark w-100"
+                      [disabled]="productForm.invalid">
+                      Create 
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

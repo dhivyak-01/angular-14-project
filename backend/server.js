@@ -6,6 +6,7 @@ const { DB_URI } = require('./config/config');
 const authRoutes = require('./routes/authRoutes');
 const dotenv = require('dotenv');
 const productRoutes = require('./routes/productRoutes');
+const bannerRouter = require('./routes/bannerRouter');
 const orderRoutes = require('./routes/orderRoutes');
 const adminauthRoutes = require('./routes/adminauth');
 const authenticateAdmin = require('./middleware/authAdminMiddleware');
@@ -38,6 +39,7 @@ app.use('/api', authRoutes); // Use /api prefix for all authentication routes
 
 // Use product routes
 app.use('/api', productRoutes);
+app.use('/api', bannerRouter);
 
 app.use('/api', orderRoutes);
 
