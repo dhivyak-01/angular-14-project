@@ -1,97 +1,85 @@
 <div class="col-12 custom-padding bg-back2">
-    <div class="card bg-back ps-3" style="padding: 10px; z-index: -1;">
-      <div class="d-flex justify-content-between align-items-start">
-        <h3 class="pt-1 text-25px title mb-0">Manage Bookings</h3>
-        <!-- <button 
+  <div class="card bg-back ps-3" style="padding: 10px; z-index: -1">
+    <div class="d-flex justify-content-between align-items-start">
+      <h3 class="pt-1 text-25px title mb-0">Manage Bookings</h3>
+       <!-- <button 
           class="btn btn-danger" 
           (click)="handleDeleteSelected()" 
           [disabled]="selectedIds.length === 0" 
           style="margin-left: 10px;">
            <fa-icon [icon]="FaTrash"></fa-icon> Use FaTrash icon here 
            delete
-        </button> -->
-      </div>
-    </div>
-    
-    <table class="table table-striped table-bordered table-hover" style="margin-top: 47px; width: 101%;">
-      <thead class="table-header">
-        <tr>
-          <th>
-            <input 
-              type="checkbox" 
-              />
-          </th>
-          <th style="width: 6%;">Order ID</th>
-          <th>Status</th>
-          <th>Total Amount</th>
-          <th>Shipping Address</th>
-          <th>Products</th>
-          <!-- <th>Payment Method</th> -->
-          <th>Name</th>
-          <th style="width: 10%;">Phone</th>
-        <th>Image</th>
-          <th style="width: 13%;">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let order of orders">
-          <td>
-            <input 
-              type="checkbox" 
-             />
-          </td>
-          <td>{{ order._id }}</td>
-          <td>{{ order.status }}</td>
-          <td>{{ order.totalAmount | currency }}</td>
-          <td>{{ order.shippingAddress.street }}, {{ order.shippingAddress.city }}, {{ order.shippingAddress.state }} - {{ order.shippingAddress.postalCode }}, {{ order.shippingAddress.country }}</td>
-          <td>
-            <ul>
-              <li *ngFor="let product of order.products">
-                Product ID: {{ product.productId }} - Quantity: {{ product.quantity }}
-              </li>
-            </ul>
-          </td>
-          <td>{{ order.name }}</td>
-          <td>{{ order.phoneNumber }}</td>
-          <td *ngFor="let product of order.products"><img [src]="'http://localhost:3000/' + product.image" [alt]="product.title"></td>
-          <td>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#courseModal">View</button>
-            <button class="btn btn-danger"style="margin-left: 5px;">
-                Delete
-              </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-   
-    <div class="d-flex justify-content-center mt-3">
-      <ngb-pagination 
-        [pageSize]="1">
-      </ngb-pagination>
-    </div>
-  
-
-  <div class="modal fade" id="courseModal" tabindex="-1" aria-labelledby="courseModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="courseModalLabel"></h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <img [src]="" alt="Course Image" class="img-fluid">
-          <p><strong>Description:</strong> </p>
-          <p><strong>Duration:</strong></p>
-          <p><strong>Lectures:</strong> </p>
-          <p><strong>Price:</strong> </p>
-          <p><strong>Created At:</strong> </p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
+        </button>  -->
     </div>
   </div>
 
+  <table class="table table-striped table-bordered table-hover" style="margin-top: 47px; width: 101%;">
+  <thead class="table-header">
+    <tr>
+      <th>
+        <input type="checkbox" />
+      </th>
+      <th style="width: 6%;">Order ID</th>
+      <th>Status</th>
+      <th>Total Amount</th>
+      <th>Products</th>
+      <th>Name</th>
+      <th style="width: 10%;">Phone</th>
+      <th>Image</th>
+      <th style="width: 15%;">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let order of orders">
+      <td>
+        <input type="checkbox" />
+      </td>
+      <td>{{ order._id }}</td>
+      <td>{{ order.status }}</td>
+      <td>{{ order.totalAmount | currency }}</td>
+      <td>
+        <ul>
+          <li *ngFor="let product of order.products">
+            Product ID: {{ product.productId }} - Quantity: {{ product.quantity }}
+          </li>
+        </ul>
+      </td>
+      <td>{{ order.name }}</td>
+      <td>{{ order.phoneNumber }}</td>
+      <td *ngFor="let product of order.products"><img [src]="'http://localhost:3000/' + product.image" [alt]="product.title"></td>
+      <td>
+        <button class="btn btn-primary" (click)="handleView(order)" data-bs-toggle="modal" data-bs-target="#courseModal">View</button>
+        <button class="btn btn-danger" style="margin-left: 5px;">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-  
+  <div class="d-flex justify-content-center mt-3">
+    <ngb-pagination [pageSize]="1"> </ngb-pagination>
+  </div>
+
+  <div class="modal fade" id="courseModal" tabindex="-1" aria-labelledby="courseModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="courseModalLabel">Order Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" *ngIf="selectedOrder">
+        <!-- Displaying selected order's details -->
+        <img [src]="'http://localhost:3000/' + selectedOrder.products[0]?.image" alt="Product Image" class="img-fluid">
+        <p><strong>Status:</strong> {{ selectedOrder.status }}</p>
+        <p><strong>Total Amount:</strong> {{ selectedOrder.totalAmount | currency }}</p>
+        <p><strong>Shipping Address:</strong> {{ selectedOrder.shippingAddress.street }}, {{ selectedOrder.shippingAddress.city }}, {{ selectedOrder.shippingAddress.state }} - {{ selectedOrder.shippingAddress.postalCode }}, {{ selectedOrder.shippingAddress.country }}</p>
+        <p><strong>Products:</strong></p>
+        <ul>
+          <li *ngFor="let product of selectedOrder.products">
+            Product ID: {{ product.productId }} - Quantity: {{ product.quantity }}
+          </li>
+        </ul>
+        <p><strong>Name:</strong> {{ selectedOrder.name }}</p>
+        <p><strong>Phone:</strong> {{ selectedOrder.phoneNumber }}</p>
+    </div>
+  </div>
+</div>

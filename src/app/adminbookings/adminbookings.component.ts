@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { GetallOrdersService } from '../getall-orders.service';
-
+declare var bootstrap: any;
 // export interface Order {
 //   _id: string;
 //   name: string;
@@ -33,10 +33,9 @@ import { GetallOrdersService } from '../getall-orders.service';
   templateUrl: './adminbookings.component.html',
   styleUrls: ['./adminbookings.component.css']
 })
-export class AdminbookingsComponent implements OnInit {
-
+export class AdminbookingsComponent implements OnInit, AfterViewInit {
+  selectedOrder: any = null;
   orders: any[] = [];
-
   constructor(private ordersService: GetallOrdersService) {}
 
   ngOnInit(): void {
@@ -51,5 +50,25 @@ export class AdminbookingsComponent implements OnInit {
       }
     );
   }
+  handleView(course: any) {
+    this.selectedOrder = course;  // Assign the selected course to viewedcourse
+    console.log('Viewing course:', this.selectedOrder);  // Log the viewedcourse object
+  }
+  
+  // handleView(order: any) {
+  //   // Assign the clicked order to selectedOrder
+  //   this.selectedOrder = order;
+  // }
 
+  ngAfterViewInit(): void {
+    // Access the modal element
+    const modalElement = document.getElementById('courseModal');
+    
+    if (modalElement) {
+      // Initialize the modal with backdrop set to 'false'
+      const modal = new bootstrap.Modal(modalElement, {
+        backdrop: false // This disables the backdrop
+      });
+    }
+  }
 }

@@ -133,14 +133,16 @@
   }
   
   .dropdown-menu {
-    background-color: #495057;
+    width: 247px;
+    background-color: #ffffff;
   }
   
   .dropdown-item {
-    color: white;
+    color: #6c757d;
   }
   
   .dropdown-item:hover {
+    color: #ffffff;
     background-color: #6c757d;
   }
   

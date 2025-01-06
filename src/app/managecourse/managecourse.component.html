@@ -72,16 +72,16 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <img [src]="viewedcourse?.image" alt="Course Image" class="img-fluid">
+          <img  [src]="'http://localhost:3000/' + viewedcourse?.image" alt="Course Image" class="img-fluid">
           <p><strong>Description:</strong> {{ viewedcourse?.description }}</p>
           <p><strong>Duration:</strong> {{ viewedcourse?.duration }}</p>
           <p><strong>Lectures:</strong> {{ viewedcourse?.lectures }}</p>
           <p><strong>Price:</strong> {{ viewedcourse?.price | currency }}</p>
           <p><strong>Created At:</strong> {{ viewedcourse?.createdAt | date:'medium' }}</p>
         </div>
-        <div class="modal-footer">
+        <!-- <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
