@@ -14,14 +14,17 @@ export class BannerComponent implements OnInit {
   productForm: FormGroup;
   selectedFile: File | null = null;
   errorMessage: string = '';  // Declare errorMessage to store error messages
+  // bannerStatuses: string[] = ['enable', 'disable'];
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.productForm = this.fb.group({
+      id: ['', Validators.required],
       title: ['', Validators.required],
       description: ['', Validators.required],
       image: [null, Validators.required], // updated formControlName for image
       content: ['', Validators.required],
       caption: ['', Validators.required],
+      isEnabled: ['', [Validators.required]],
     });
   }
 
@@ -45,11 +48,14 @@ export class BannerComponent implements OnInit {
   onSubmit() {
     if (this.productForm.valid) {
       const formData = new FormData();
+      formData.append('id', this.productForm.get('id')?.value);
       formData.append('title', this.productForm.get('title')?.value);
       formData.append('description', this.productForm.get('description')?.value);
       formData.append('image', this.selectedFile as File);
       formData.append('content', this.productForm.get('content')?.value);
       formData.append('caption', this.productForm.get('caption')?.value);
+      const isEnabled = this.productForm.get('isEnabled')?.value; // true or false
+      formData.append('isEnabled', isEnabled.toString()); 
      
 
       this.http.post('http://localhost:3000/api/banner', formData)
@@ -57,7 +63,7 @@ export class BannerComponent implements OnInit {
           response => {
             console.log('Product created successfully:', response);
             alert('Product created successfully!');
-            this.productForm.reset(); // Reset the form after successful submission
+            this.productForm.reset(); // Reset the form after successful submission 
           },
           error => {
             console.error('Error creating product:', error);

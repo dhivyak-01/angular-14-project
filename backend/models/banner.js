@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 
 const bannerSchema = new mongoose.Schema({
-
+  id: {
+    type: Number,
+    required: true
+  },
   title: {
     type: String,
     required: true
@@ -22,6 +25,7 @@ const bannerSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  isEnabled: { type: Boolean, required: true },
   
 }, {
   timestamps: true

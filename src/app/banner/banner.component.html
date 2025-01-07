@@ -19,6 +19,13 @@
   
                 <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
                   <div class="single-form">
+                    <label for="title">Banner Id</label>
+                    <input type="number" id="id" class="form-control" formControlName="id" />
+                      <div *ngIf="productForm.get('id')?.invalid && productForm.get('id')?.touched" class="text-danger">
+                        sub-title is required.
+                      </div>
+                  </div>
+                  <div class="single-form">
                     <label for="title">Banner sub-title</label>
                     <input type="text" id="title" class="form-control" formControlName="title" />
                       <div *ngIf="productForm.get('title')?.invalid && productForm.get('title')?.touched" class="text-danger">
@@ -53,7 +60,16 @@
                         Button Caption is required.
                       </div>
                   </div>
-            
+                  <div class="single-form">
+                    <label for="isEnabled">Banner Status</label>
+                    <select id="isEnabled" class="form-control" formControlName="isEnabled">
+                      <option [ngValue]="true">Enabled</option>
+                      <option [ngValue]="false">Disabled</option>
+                    </select>
+                    <div *ngIf="productForm.get('isEnabled')?.invalid && productForm.get('isEnabled')?.touched" class="text-danger">
+                      Banner Status is required.
+                    </div>
+                  </div>
                   <div class="single-form">
                     <button
                       type="submit"

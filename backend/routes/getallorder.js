@@ -22,4 +22,26 @@ router.get('/customerorders', async (req, res) => {
   }
 });
 
+// Route to delete an order by ID
+router.delete('/customerorders/:id', async (req, res) => {
+  const { id } = req.params;  // Get the order ID from the URL parameters
+
+  try {
+    // Attempt to find and delete the order by its ID
+    const result = await Order.findByIdAndDelete(id);
+
+    // If no order is found with the given ID, return a 404 response
+    if (!result) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+    // Return a success message if the order is successfully deleted
+    res.status(200).json({ message: 'Order deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting order:', error);
+    // Return an error response if there is a problem with deletion
+    res.status(500).json({ error: 'Internal Server Error', details: error });
+  }
+});
+
 module.exports = router;

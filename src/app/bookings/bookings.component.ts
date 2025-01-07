@@ -56,17 +56,6 @@ export class BookingsComponent implements OnInit {
     this.fetchOrders();  // Fetch orders when the component initializes
   }
 
-  // fetchOrders(): void {
-  //   this.orderService.getOrders().subscribe(
-  //     (response: OrdersResponse) => {
-  //       console.log('Fetched orders from bookings:', response);
-  //       this.orders = response.orders;  // This now works correctly since `response` is typed
-  //     },
-  //     (error) => {
-  //       console.error('Error fetching orders:', error);
-  //     }
-  //   );
-  // }
   fetchOrders(): void {
     this.orderService.getOrders().subscribe(
       (response: OrdersResponse) => {  // Correct type assignment here

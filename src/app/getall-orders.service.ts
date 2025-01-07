@@ -14,7 +14,7 @@ export class GetallOrdersService {
     return this.http.get<any[]>(this.apiUrl);
   }
 
-  // getOrderById(orderId: string): Observable<any> {
-  //   return this.http.get(`${this.apiUrl}/${orderId}`);
-  // }
+  deleteOrder(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 }

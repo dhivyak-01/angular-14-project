@@ -1,32 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { GetallOrdersService } from '../getall-orders.service';
 declare var bootstrap: any;
-// export interface Order {
-//   _id: string;
-//   name: string;
-//   phoneNumber: string;
-//   orderDate: string;
-//   totalAmount: number;
-//   status: string;
-//   shippingAddress: {
-//     street: string;
-//     city: string;
-//     state: string;
-//     postalCode: string;
-//     country: string;
-//   };
-//   products: Array<{
-//     productId: string;
-//     quantity: number;
-//   }>;
-// }
 
-// export interface OrdersResponse {
-//   orders: Order[];  // The response contains an array of orders
-//   total: number;
-//   page: number;
-//   limit: number;
-// }
 
 @Component({
   selector: 'app-adminbookings',
@@ -55,10 +30,6 @@ export class AdminbookingsComponent implements OnInit, AfterViewInit {
     console.log('Viewing course:', this.selectedOrder);  // Log the viewedcourse object
   }
   
-  // handleView(order: any) {
-  //   // Assign the clicked order to selectedOrder
-  //   this.selectedOrder = order;
-  // }
 
   ngAfterViewInit(): void {
     // Access the modal element
@@ -71,4 +42,21 @@ export class AdminbookingsComponent implements OnInit, AfterViewInit {
       });
     }
   }
+
+  // Delete an order by ID
+  handleDelete(id: string) {
+    if (confirm('Are you sure you want to delete this order?')) {
+      this.ordersService.deleteOrder(id).subscribe(
+        () => {
+          // On success, remove the deleted order from the local list
+          this.orders = this.orders.filter(order => order._id !== id);
+          console.log('Order deleted successfully');
+        },
+        error => {
+          console.error('Error deleting order:', error);
+        }
+      );
+    }
+  }
+
 }

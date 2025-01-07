@@ -213,5 +213,9 @@ label{
     padding-top: 15px;
 }
 
-
+#bannerStatus{
+    width: 139%;
+    padding: 18px;
+    border-radius: 10px;
+}
 

@@ -49,7 +49,7 @@
       <td *ngFor="let product of order.products"><img [src]="'http://localhost:3000/' + product.image" [alt]="product.title"></td>
       <td>
         <button class="btn btn-primary" (click)="handleView(order)" data-bs-toggle="modal" data-bs-target="#courseModal">View</button>
-        <button class="btn btn-danger" style="margin-left: 5px;">Delete</button>
+        <button class="btn btn-danger" (click)="handleDelete(order._id)" style="margin-left: 5px;">Delete</button>
       </td>
     </tr>
   </tbody>
