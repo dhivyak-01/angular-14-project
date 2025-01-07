@@ -57,54 +57,47 @@
         <img src="assets/images/slider-1.webp" alt="Slider">
       </div>
     </div>
-    <!-- Slider Images End -->
-  
-    <!-- Slider Video Start -->
-    <!-- <div class="slider-video">
-      <img class="shape-1" src="assets/images/shape-9.png" alt="Shape">
-  
-      <div class="video-play">
-        <img src="assets/images/shape-10.png" alt="Shape">
-        <a href="https://www.youtube.com/watch?v=BRvyWfuxGuU" class="play video-popup" target="_blank">
-          <i class="flaticon-play"></i>
-        </a>
-      </div>
-    </div> -->
-    <!-- Slider Video End -->
+   
   </div>
-<!-- </div> -->
 
 
 
 
-  <div class="tab-pane fade show active" id="tabs1">
-    <div class="courses-wrapper">
-      <div class="row">
-        <div *ngFor="let course of courses.products" class="col-lg-4 col-md-6">
-          <div class="single-courses">
-            <div class="courses-images">
-              <a [routerLink]="['/course-details', course.id]">
-                <img [src]="course.image" [alt]="course.title">
-              </a>
+
+<div class="tab-pane fade show active" id="tabs1">
+  <div class="courses-wrapper">
+    <div class="row">
+      <div *ngFor="let course of courses.products" class="col-lg-4 col-md-6">
+        <div class="single-courses">
+          <div class="courses-images">
+            <a [routerLink]="['/course-details', course.id]">
+              <img [src]="'http://localhost:3000/' + course.image" [alt]="course.title">
+            </a>
+          </div>
+          <div class="courses-content">
+            <h4 class="title">
+              <a [routerLink]="['/course-details', course.id]">{{ course.title }}</a>
+            </h4>
+            <p class="description">{{ course.description }}</p>
+            <div class="courses-meta d-flex justify-content-between">
+              <span><i class="icofont-clock-time"></i> {{ course.duration }}</span>
+              <span><i class="icofont-read-book"></i> {{ course.lectures }} Lectures</span>
             </div>
-            <div class="courses-content">
-              <h4 class="title">
-                <a [routerLink]="['/course-details', course.id]">{{ course.title }}</a>
-              </h4>
-              <p class="description">{{ course.description }}</p>
-              <div class="courses-meta d-flex justify-content-between">
-                <span><i class="icofont-clock-time"></i> {{ course.duration }}</span>
-                <span><i class="icofont-read-book"></i> {{ course.lectures }} Lectures</span>
+            <div class="courses-price-review">
+              <div class="courses-price">
+                <span class="sale-price">{{ course.price | currency }}</span>
               </div>
-              <div class="courses-price-review">
-                <div class="courses-price">
-                  <span class="sale-price">{{ course.price | currency }}</span>
-                </div>
-                <button class="btn btn-primary" [routerLink]="course.bookNowUrl">Book Now</button>
-              </div>
+              <!-- Book Now button triggers the 'onBookNow' method -->
+              <button 
+                class="btn btn-primary" 
+                (click)="onBookNow(course)">
+                Book Now
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
  

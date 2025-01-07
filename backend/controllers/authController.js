@@ -8,7 +8,7 @@ const { JWT_SECRET, JWT_EXPIRATION } = require('../config/config');
 const registerUser = async (req, res) => {
   const { username, password, email, firstName, lastName, phoneNumber, dateOfBirth } = req.body;
 
-  if (!username || !password || !email) {
+  if (!username || !email) {
     return res.status(400).json({ error: "Invalid input. Please check the provided data." });
   }
 
@@ -32,7 +32,7 @@ const registerUser = async (req, res) => {
     return res.status(400).json({ error: "Invalid email format." });
   }
 
-  if (phoneNumber && !/^\d{3}-\d{3}-\d{4}$/.test(phoneNumber)) {
+  if (phoneNumber && !/^\d{10}$/.test(phoneNumber)) {
     return res.status(400).json({ error: "Invalid phone number format. Use 123-456-7890." });
   }
 
@@ -88,11 +88,6 @@ const loginUser = async (req, res) => {
       return res.status(401).json({ error: "Invalid username or password." });
     }
 
-    // const token = jwt.sign(
-    //   { userId: user._id, role: user.role },
-    //   JWT_SECRET,
-    //   { expiresIn: JWT_EXPIRATION }
-    // );
 
     const token = jwt.sign(
         { userId: user._id, role: user.role }, 

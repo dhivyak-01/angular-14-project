@@ -20,22 +20,6 @@ export class ManagebannerComponent implements OnInit, AfterViewInit {
 
   constructor(private bennerService: BennerService) {}
   
-//     ngOnInit(): void {
-//       this.bennerService.getBanner().subscribe(
-//         (response) => {
-//           this.banners = response;
-//           console.log('Fetched banners:', this.banners);
-//           this.banners.banners.reverse();
-//       console.log('Fetched and reversed banners:', this.banners);
-//         },
-//         (error) => {
-//           console.error('Error fetching banners:', error);
-//         }
-//       );
-// }
-
-
-
 ngOnInit(): void {
   // Fetch banners from the backend and reverse them
   this.bennerService.getBanner().subscribe(

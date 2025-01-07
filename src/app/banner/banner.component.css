@@ -192,19 +192,7 @@ label{
 .w-100 {
     width: 138% !important;
 }
-/* .title:before {
-    position: absolute;
-    content: "";
-    background-image: url('src/assets/images/shape-4.png');
-    background-position: center center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    width: 121px;
-    height: 13px;
-    top: 77%;
-    right: 73%;
-    bottom: -10px;
-} */
+
 
 #description{
     padding-top: 19px;

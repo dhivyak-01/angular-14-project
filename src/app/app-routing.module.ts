@@ -15,6 +15,8 @@ import { BannerComponent } from './banner/banner.component';
 import { AdminbookingsComponent } from './adminbookings/adminbookings.component';
 import { CartComponent } from './cart/cart.component';
 import { ManagebannerComponent } from './managebanner/managebanner.component';
+import { ManageuserComponent } from './manageuser/manageuser.component';
+import { AdduserComponent } from './adduser/adduser.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -30,6 +32,8 @@ const routes: Routes = [
   { path: 'add', component: AddcourseComponent },
   { path: 'manage', component: ManagecourseComponent },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'adduser', component: AdduserComponent },
+  { path: 'manageuser', component: ManageuserComponent },
   { path: 'banner', component: BannerComponent },
   { path: 'adminbookings', component: AdminbookingsComponent },
   { path: 'managebanner', component: ManagebannerComponent },

@@ -1,33 +1,9 @@
 const express = require('express');
 const Product = require('../models/Product');
-const authenticateUser = require('../middleware/auth');  // Authentication middleware
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 
-// POST: Add a new product
-// router.post('/products', authenticateUser, async (req, res) => {
-//   const { title, description, image, duration, lectures, price  } = req.body;
-
-//   try {
-//     // Create a new product document
-//     const newProduct = new Product({
-//       title,
-//       description,
-//       image,
-//       duration,
-//       lectures,
-//       price
-//     });
-
-//     // Save the product to the database
-//     await newProduct.save();
-//     return res.status(201).json({ message: 'Product created successfully', product: newProduct });
-//   } catch (error) {
-//     console.error(error);
-//     return res.status(500).json({ error: 'Failed to create product. Please try again later.' });
-//   }
-// });
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {

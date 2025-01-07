@@ -46,35 +46,6 @@ router.post("/banner", upload.single("image"), async (req, res) => {
 });
 
 
-// router.get("/banner", async (req, res) => {
-//   const { page = 1, limit = 10 } = req.query; // Default page is 1 and limit is 10
-//   const skip = (page - 1) * limit; // Skip items based on the current page
-
-//   try {
-//     // Fetch the paginated banners
-//     const banners = await Banner.find()
-//       .skip(Number(skip)) // Skip the first 'skip' items
-//       .limit(Number(limit)); // Limit the number of items to the 'limit' value
-
-//     // Get the total count of banners to calculate pagination
-//     const totalBanners = await Banner.countDocuments();
-
-//     return res.status(200).json({
-//       banners,
-//       total: totalBanners, // Total number of banners in the database
-//       page: Number(page), // Current page
-//       limit: Number(limit), // Limit per page
-//     });
-//   } catch (error) {
-//     console.error("Error fetching banners:", error);
-//     return res
-//       .status(500)
-//       .json({ error: "Failed to fetch Banner. Please try again later." });
-//   }
-// });
-
-
-
 router.get("/banner", async (req, res) => {
   try {
     // Fetch all banners without pagination

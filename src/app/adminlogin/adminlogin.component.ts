@@ -10,35 +10,6 @@ import { AdminService } from '../admin.service';
 })
 export class AdminloginComponent implements OnInit, AfterViewInit  {
 
-  // user = { username: '', password: '' };
-  // errorMessage: string = '';  // Property for error message
-
-  // // Inject AdminService to interact with backend
-  // constructor(private adminService: AdminService) {}
-
-  // // ngOnInit lifecycle hook
-  // ngOnInit(): void {
-  //   // You can initialize some logic here if needed when the component is created
-  // }
-
-  // // Submit method to handle form submission
-  // onSubmit() {
-  //   // Calling the loginAdmin method from AdminService
-  //   this.adminService.loginAdmin(this.user.username, this.user.password).subscribe(
-  //     (response) => {
-  //       console.log('Login success:', response);
-  //       // Handle successful login: store token, redirect, etc.
-        
-  //       this.errorMessage = ''; // Clear any previous error message
-  //     },
-  //     (error) => {
-  //       console.error('Login error:', error);
-  //       // Handle error (e.g., show error message)
-  //       this.errorMessage = 'Invalid username or password.';  // Set error message
-  //     }
-  //   );
-  // }
-
   
   user = { username: '', password: '' };
   errorMessage: string = '';  // Property for error message

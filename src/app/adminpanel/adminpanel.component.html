@@ -27,13 +27,32 @@
       <button class="sidebar-btn" (click)="activePage = 'Dashboard'">
         <i class="fa fa-tachometer-alt"></i> Dashboard
       </button>
-  
+
+      <div class="dropdown">
+        <button class="sidebar-btn dropdown-toggle" type="button" id="courseDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa fa-book"></i> User
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="courseDropdown">
+
+          <li>
+            <a class="dropdown-item" (click)="activePage = 'Add User'"><i class="fa fa-user-plus"></i> Add User</a>
+          </li>
+         
+          <li>
+            <a class="dropdown-item" (click)="activePage = 'Manage User'"> <i class="fa fa-user"></i> Manage User</a>
+          </li>
+        </ul>
+      </div>
+
+
       <div class="dropdown">
         <button class="sidebar-btn dropdown-toggle" type="button" id="courseDropdown" data-bs-toggle="dropdown" aria-expanded="false">
           <i class="fa fa-book"></i> Course
         </button>
         <ul class="dropdown-menu" aria-labelledby="courseDropdown">
+
           
+
           <li>
             <a class="dropdown-item" (click)="activePage = 'Add Course'">Add Course</a>
           </li>
@@ -74,5 +93,7 @@
       <app-banner *ngSwitchCase="'Banner'"></app-banner>
       <app-adminbookings *ngSwitchCase="'Bookings'"></app-adminbookings>
       <app-managebanner *ngSwitchCase="'Manage Banner'"></app-managebanner>
+      <app-manageuser *ngSwitchCase="'Manage User'"></app-manageuser>
+      <app-adduser *ngSwitchCase="'Add User'"></app-adduser>
     </div>
   </div>

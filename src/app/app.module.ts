@@ -16,7 +16,6 @@ import { CommonModule } from '@angular/common';
 import { AdminloginComponent } from './adminlogin/adminlogin.component';
 import { AdminpanelComponent } from './adminpanel/adminpanel.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { AdmincourseComponent } from './admincourse/admincourse.component';
 import { ManagecourseComponent } from './managecourse/managecourse.component';
 import { AddcourseComponent } from './addcourse/addcourse.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -28,6 +27,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from './modal/modal.component';
 import { CartComponent } from './cart/cart.component';
 import { ManagebannerComponent } from './managebanner/managebanner.component';
+import { ManageuserComponent } from './manageuser/manageuser.component';
+import { AdduserComponent } from './adduser/adduser.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +39,6 @@ import { ManagebannerComponent } from './managebanner/managebanner.component';
     HomeComponent,
     AdminloginComponent,
     AdminpanelComponent,
-    AdmincourseComponent,
     ManagecourseComponent,
     AddcourseComponent,
     DashboardComponent,
@@ -46,7 +46,9 @@ import { ManagebannerComponent } from './managebanner/managebanner.component';
     AdminbookingsComponent,
     ModalComponent,
     CartComponent,
-    ManagebannerComponent
+    ManagebannerComponent,
+    ManageuserComponent,
+    AdduserComponent
   ],
   imports: [
     BrowserModule,

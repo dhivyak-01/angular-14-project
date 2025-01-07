@@ -1,0 +1,112 @@
+<!-- src/app/register/register.component.html -->
+<div class="section section-padding">
+    <div class="container">
+      <div class="register-login-wrapper">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <div class="register-login-images">
+              <div class="shape-1">
+                <img src="assets/images/shape-26.png" alt="Shape" />
+              </div>
+              <div class="images">
+                <img src="assets/images/register-login.png" alt="Register Login" />
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="register-login-form">
+              <h3 class="title"> Add New <span>User</span></h3>
+  
+              <div class="form-wrapper">
+                <!-- Registration Form -->
+                <form (ngSubmit)="onSubmit()">
+                  <div class="single-form">
+                    <input
+                      type="text"
+                      placeholder="Username"
+                      [(ngModel)]="user.username"
+                      name="username"
+                      required
+                    />
+                  </div>
+                  <div class="single-form">
+                    <input
+                      type="text"
+                      placeholder="First Name"
+                      [(ngModel)]="user.firstName"
+                      name="firstName"
+                      required
+                    />
+                  </div>
+                  <div class="single-form">
+                    <input
+                      type="text"
+                      placeholder="Last Name"
+                      [(ngModel)]="user.lastName"
+                      name="lastName"
+                      required
+                    />
+                  </div>
+                  <div class="single-form">
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      [(ngModel)]="user.email"
+                      name="email"
+                      required
+                    />
+                  </div>
+                  <div class="single-form">
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      [(ngModel)]="user.password"
+                      name="password"
+                      required
+                    />
+                  </div>
+                  <div class="single-form">
+                    <input
+                      type="password"
+                      placeholder="Confirm Password"
+                      [(ngModel)]="user.confirmPassword"
+                      name="confirmPassword"
+                      required
+                    />
+                  </div>
+                  <div class="single-form">
+                    <input
+                      type="text"
+                      placeholder="Phone Number"
+                      [(ngModel)]="user.phoneNumber"
+                      name="phoneNumber"
+                      required
+                    />
+                  </div>
+                  <div class="single-form">
+                    <input
+                      type="date"
+                      placeholder="Date of Birth"
+                      [(ngModel)]="user.dateOfBirth"
+                      name="dateOfBirth"
+                      required
+                    />
+                  </div>
+                  <div class="single-form">
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-hover-dark w-100"
+                      [disabled]="!user.username || !user.firstName || !user.lastName || !user.email || !user.password || !user.confirmPassword || !user.phoneNumber || !user.dateOfBirth"
+                    >
+                      Create New User
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

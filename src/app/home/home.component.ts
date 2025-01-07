@@ -1,86 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../course.service';
+import { AuthService } from '../auth.service';
+import { CartService } from '../cart.service'; 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  // courses = [
-  //   {
-  //     id: 1,
-  //     title: 'Data Science and Machine Learning with Python - Hands On!',
-  //     description: 'Learn Data Science and Machine Learning with Python through hands-on projects and exercises.',
-  //     image: 'assets/images/courses-01.png',
-  //     duration: '08 hr 15 mins',
-  //     lectures: 29,
-  //     price: 385.00,
-  //     bookNowUrl: '/book-now/1'  // You can replace this with your desired link
-  //   },
-  //   {
-  //     id: 2,
-  //     title: 'Create Amazing Color Schemes for Your UX Design Projects',
-  //     description: 'Master the art of creating beautiful and effective color schemes for UI/UX design projects.',
-  //     image: 'assets/images/courses-02.png',
-  //     duration: '06 hr 30 mins',
-  //     lectures: 25,
-  //     price: 420.00,
-  //     bookNowUrl: '/book-now/2'
-  //   },
-  //   {
-  //     id: 3,
-  //     title: 'Culture & Leadership: Strategies for a Successful Business',
-  //     description: 'Learn the strategies and skills needed for successful leadership and business culture.',
-  //     image: 'assets/images/courses-03.png',
-  //     duration: '10 hr 00 mins',
-  //     lectures: 32,
-  //     price: 295.00,
-  //     bookNowUrl: '/book-now/3'
-  //   },
-  //   {
-  //     "id": 4,
-  //     "title": "Finance Series: Learn to Budget and Calculate your Net Worth.",
-  //     "description": "Master budgeting skills and learn to calculate your net worth with this finance series.",
-  //     "image": "assets/images/courses-04.png",
-  //     "duration": "08 hr 15 mins",
-  //     "lectures": 29,
-  //     "price": 0.00,
-  //     "bookNowUrl": "/book-now/1"
-  //   },
-  //   {
-  //     "id": 5,
-  //     "title": "Build Brand Into Marketing: Tackling the New Marketing Landscape",
-  //     "description": "Learn how to build a brand and master the new marketing landscape with this course.",
-  //     "image": "assets/images/courses-05.png",
-  //     "duration": "08 hr 15 mins",
-  //     "lectures": 29,
-  //     "price": 136.00,
-  //     "bookNowUrl": "/book-now/2"
-  //   },
-  //   {
-  //     "id": 6,
-  //     "title": "Graphic Design: Illustrating Badges and Icons with Geometric Shapes",
-  //     "description": "Learn how to create geometric shape-based badges and icons in this graphic design course.",
-  //     "image": "assets/images/courses-06.png",
-  //     "duration": "08 hr 15 mins",
-  //     "lectures": 29,
-  //     "price": 237.00,
-  //     "bookNowUrl": "/book-now/3"
-  //   }
-  // ];
-
   
-  // constructor() { }
-
-  // ngOnInit(): void {
-  // }
-
-
-
 
   courses: any = { products: [], total: 0, page: 1, limit: 10 };  // 'any' type for simplicity
 
-  constructor(private courseService: CourseService) {}
+  constructor(private courseService: CourseService, private cartService: CartService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.courseService.getCourses().subscribe(
@@ -92,5 +24,33 @@ export class HomeComponent implements OnInit {
         console.error('Error fetching courses:', error); // Handle any errors
       }
     );
+  }
+
+  onBookNow(course: any): void {
+    const userId = this.authService.getUserIdFromToken();  // Get the user ID dynamically from the token
+    console.log('Course:', course);
+    console.log('Course ID:', course._id); 
+    // Check if the user is logged in and has a valid user ID
+    if (!userId) {
+      console.error('User is not logged in or token is invalid');
+      return;
+    }
+    if (!course._id) {
+      console.error('Course ID is undefined:', course);
+      return;
+    }
+    // Add course to cart with dynamic user ID
+    this.cartService.addToCart({
+      userId: userId,  // Fetch the user ID dynamically
+      courseId: course._id,
+      title: course.title,
+      price: course.price,
+      description: course.description,
+      image: course.image,
+      duration: course.duration,
+      lectures: course.lectures
+    });
+
+    // console.log('Added course to cart:', course);
   }
 }

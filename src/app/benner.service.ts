@@ -20,16 +20,6 @@ export class BennerService {
 
 
 
-
-  // getBanner(page: number, limit: number): Observable<any> {
-  //   const params = new HttpParams()
-  //     .set('page', page.toString())  // Pass the page as a query parameter
-  //     .set('limit', limit.toString());  // Pass the limit as a query parameter
-  
-  //   return this.http.get<any>(this.apiUrl, { params });
-  // }
-
-
   deleteBanner(bannerId: string): Observable<any> {
     return this.http.delete(`http://localhost:3000/api/banner/${bannerId}`);
   }

@@ -44,13 +44,13 @@ interface OrdersResponse {
 }
 
 interface CartItem {
-  _id: string;          // Unique identifier for the cart item (e.g., course ID)
-  price: number;       // Price of the course/item
-  quantity: number;    // Quantity of the item in the cart
-  title: string;       // Title or name of the course/item
-  image?: string;      // Optional: URL to the image associated with the course/item
-  description?: string; // Optional: A description of the course/item
-  duration?: string;   // Optional: Duration of the course (if applicable)
+  _id: string;          
+  price: number;       
+  quantity: number;    
+  title: string;      
+  image?: string;      
+  description?: string; 
+  duration?: string;   
   lectures?: number;
 }
 @Injectable({
@@ -79,8 +79,6 @@ export class OrderService {
     console.log('Total Amount:', totalAmount);  // Log the total amount to the console
     return totalAmount;
   }
-
-  // Method to place an order
   placeOrder(orderPayload: any): Observable<any> {
     // Get the token from AuthService to add it in the headers
     const token = this.authService.getToken();
@@ -104,7 +102,6 @@ export class OrderService {
     return this.http.post(this.apiUrl, orderPayload, { headers });
   }
 
-   
     
     getOrders(): Observable<OrdersResponse> {
       const userId = this.authService.getUserId();  // Get the user ID from the AuthService
@@ -121,10 +118,6 @@ export class OrderService {
     }
 
 
-  //  // Method to fetch all orders (Public access - no authentication needed)
-  // getAllOrders(): Observable<any[]> {
-  //   return this.http.get<any[]>(this.apiUrlGetAllOrders);  // Simply call the GET API route
-  // }
 
   
 }
