@@ -22,7 +22,7 @@ export class CourseComponent implements OnInit, AfterViewInit {
   constructor(private courseService: CourseService, private cartService: CartService, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.courseService.getCourses().subscribe(
+    this.courseService.getProducts().subscribe(
       (response) => {
         this.courses = response;
         console.log('Fetched courses:', this.courses);

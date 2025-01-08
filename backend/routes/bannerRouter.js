@@ -46,6 +46,25 @@ router.post("/banner", upload.single("image"), async (req, res) => {
 });
 
 
+
+router.get('/banner/:id', async (req, res) => {
+  const bannerId = req.params.id;  // Access the 'id' from the URL parameter
+
+  try {
+    // Find the banner by its MongoDB ObjectId
+    const banner = await Banner.findById(bannerId);
+
+    if (!banner) {
+      return res.status(404).json({ message: 'Banner not found' });
+    }
+
+    res.json(banner);  // Return the banner data as JSON
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error fetching banner' });
+  }
+});
+
 router.get("/banner", async (req, res) => {
   try {
     // Fetch all banners without pagination

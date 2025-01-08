@@ -93,10 +93,44 @@ export class CartComponent implements OnInit, AfterViewInit {
   }
 
    // Submit the order to the server
-   submitOrder(orderForm: any): void {
+  //  submitOrder(orderForm: any): void {
+  //   if (orderForm.valid) {
+  //     const userId = this.authService.getUserId(); // Get userId from AuthService (localStorage)
+
+  //     // Construct the order payload with the additional user info
+  //     const orderPayload = {
+  //       userId,
+  //       name: this.order.name,
+  //       phoneNumber: this.order.phoneNumber,
+  //       image: this.order.image,
+  //       products: this.order.products,
+  //       shippingAddress: this.order.shippingAddress,
+  //       paymentMethod: this.order.paymentMethod,
+  //       totalAmount: this.order.totalAmount
+  //     };
+  //     console.log('Order orderPayload cart page', orderPayload);
+
+  //     // Use OrderService to place the order
+  //     this.orderService.placeOrder(orderPayload).subscribe(
+  //       (response) => {
+  //         // Success response
+  //         alert('Order placed successfully');
+  //         console.log('Order placed successfully', response);
+  //         // this.router.navigate(['/order-success']);  // Redirect to a success page
+  //       },
+  //       (error) => {
+  //         // Error response
+  //         console.error('Error placing order', error);
+  //       }
+  //     );
+  //   }
+  // }
+
+
+  submitOrder(orderForm: any): void {
     if (orderForm.valid) {
       const userId = this.authService.getUserId(); // Get userId from AuthService (localStorage)
-
+  
       // Construct the order payload with the additional user info
       const orderPayload = {
         userId,
@@ -109,14 +143,43 @@ export class CartComponent implements OnInit, AfterViewInit {
         totalAmount: this.order.totalAmount
       };
       console.log('Order orderPayload cart page', orderPayload);
-
+  
       // Use OrderService to place the order
       this.orderService.placeOrder(orderPayload).subscribe(
         (response) => {
           // Success response
           alert('Order placed successfully');
           console.log('Order placed successfully', response);
-          // this.router.navigate(['/order-success']);  // Redirect to a success page
+  
+          // Clear the form after successful submission
+          orderForm.reset();  // Reset the form fields
+  
+          // Clear the order object
+          this.order = {
+            name: '',
+            phoneNumber: '',
+            image: '',
+            shippingAddress: {
+              street: '',
+              city: '',
+              state: '',
+              postalCode: '',
+              country: ''
+            },
+            paymentMethod: '',
+            products: [],
+            totalAmount: 0
+          };
+  
+          // Close the modal (use bootstrap modal to close)
+          const modalElement = document.getElementById('orderModal');
+          if (modalElement) {
+            const modal = bootstrap.Modal.getInstance(modalElement);
+            modal.hide();  // Close the modal
+          }
+  
+          // Optionally, redirect to a success page
+          // this.router.navigate(['/order-success']);
         },
         (error) => {
           // Error response

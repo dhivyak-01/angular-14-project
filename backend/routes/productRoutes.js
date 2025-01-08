@@ -39,9 +39,8 @@ router.post('/products', upload.single('image'), async (req, res) => {
   }
 });
 
-// GET: Get all products with pagination, sorting, and filtering
 router.get('/products', async (req, res) => {
-  const { page = 1, limit = 10, sortBy = 'name', sortOrder = 'asc', priceMin, priceMax } = req.query;
+  const { priceMin, priceMax } = req.query; // Removed pagination parameters
 
   try {
     const filter = {};
@@ -51,23 +50,12 @@ router.get('/products', async (req, res) => {
       filter.price = { $gte: priceMin, $lte: priceMax };
     }
 
-    // Sort order and pagination
-    const sortOptions = {
-      [sortBy]: sortOrder === 'asc' ? 1 : -1
-    };
-
-    const products = await Product.find(filter)
-      .sort(sortOptions)
-      .skip((page - 1) * limit)
-      .limit(Number(limit));
-
-    const totalProducts = await Product.countDocuments(filter);
+    // Fetch products without pagination or sorting
+    const products = await Product.find(filter);  // No .skip() or .limit()
 
     return res.status(200).json({
       products,
-      total: totalProducts,
-      page,
-      limit: Number(limit)
+      total: products.length,  // Total number of products fetched
     });
   } catch (error) {
     console.error(error);
@@ -75,6 +63,35 @@ router.get('/products', async (req, res) => {
   }
 });
 
+// router.get('/products', async (req, res) => {
+//   const { page = 1, limit = 10, priceMin, priceMax } = req.query;
+
+//   try {
+//     const filter = {};
+
+//     // Add price range filter if provided
+//     if (priceMin && priceMax) {
+//       filter.price = { $gte: priceMin, $lte: priceMax };
+//     }
+
+//     // Fetch products without sorting, just using pagination
+//     const products = await Product.find(filter)
+//       .skip((page - 1) * limit)
+//       .limit(Number(limit));
+
+//     const totalProducts = await Product.countDocuments(filter);
+
+//     return res.status(200).json({
+//       products,
+//       total: totalProducts,
+//       page,
+//       limit: Number(limit)
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     return res.status(500).json({ error: 'Failed to fetch products. Please try again later.' });
+//   }
+// });
 
 
 router.delete('/products/:id', async (req, res) => {
@@ -93,6 +110,43 @@ router.delete('/products/:id', async (req, res) => {
     return res.status(500).json({ message: 'Error deleting course', error });
   }
 });
+
+
+
+router.put('/products/:id', upload.single('image'), async (req, res) => {
+  const { id } = req.params;
+  const { title, description, duration, lectures, price } = req.body;
+
+  // If a new image is uploaded, get its path; else keep the old image
+  let image = req.file ? req.file.path : null;
+
+  try {
+    // Find the product to update
+    const existingProduct = await Product.findById(id);
+
+    if (!existingProduct) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    // If no image is uploaded, keep the old image
+    if (!image) {
+      image = existingProduct.image;
+    }
+
+    // Update the product with the new data and image path
+    const updatedProduct = await Product.findByIdAndUpdate(
+      id,
+      { title, description, image, duration, lectures, price },
+      { new: true }  // Return the updated product
+    );
+
+    res.status(200).json({ message: 'Product updated successfully', product: updatedProduct });
+  } catch (error) {
+    console.error('Error updating product:', error);
+    res.status(500).json({ message: 'Error updating product', error });
+  }
+});
+
 
 
 module.exports = router;

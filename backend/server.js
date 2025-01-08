@@ -23,7 +23,7 @@ app.use(cors());  // Enable Cross-Origin Resource Sharing
 
 // Serve static files from 'uploads' directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
+app.use('/uploads', express.static('uploads'));
 // Database connection
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {

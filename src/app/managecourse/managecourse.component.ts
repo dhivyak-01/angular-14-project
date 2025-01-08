@@ -8,25 +8,48 @@ declare var bootstrap: any;
   styleUrls: ['./managecourse.component.css']
 })
 export class ManagecourseComponent implements OnInit, AfterViewInit {
-  courses: any = { products: [], total: 0, page: 1, limit: 10 };
+  courses: any = { products: [] };
   selectedIds: string[] = []; // Holds selected course IDs
-  totalPages: number = 0;     // Total number of pages
-  currentPage: number = 1;    // Current active page
+  totalCourses: number = 0; 
+  pagedCourses: any[] = [];                   // Total number of courses fetched
+  pageSize: number = 5;                   // Define how many courses to display per page
+  currentPage: number = 1;                // Define the current page number
+  totalPages: number = 0;  
   viewedcourse: any = null;
 
   constructor(private courseService: CourseService) {}
 
-  ngOnInit(): void {
-    this.courseService.getCourses().subscribe(
+
+ngOnInit(): void {
+  this.fetchProducts();
+}
+
+// Fetch all products when the component is initialized
+fetchProducts(): void {
+  this.courseService.getProducts()
+    .subscribe(
       (response) => {
-        this.courses = response;
-        console.log('Fetched courses:', this.courses);
+        this.courses.products = response.products;  // Store the fetched products (courses)
+        this.totalCourses = response.total;          // Store the total number of courses
+        this.totalPages = Math.ceil(this.totalCourses / this.pageSize);  // Calculate total pages
+        this.updatePagedCourses();  // Paginate the courses for the current page
       },
       (error) => {
         console.error('Error fetching courses:', error);
       }
     );
-    
+}
+
+updatePagedCourses(): void {
+  const startIndex = (this.currentPage - 1) * this.pageSize;  // Calculate the start index
+  const endIndex = startIndex + this.pageSize;                // Calculate the end index
+  this.pagedCourses = this.courses.products.slice(startIndex, endIndex);  // Slice the courses array to get the current page's courses
+}
+
+// Handle page changes
+loadPage(page: number): void {
+  this.currentPage = page;  // Update the current page number
+  this.updatePagedCourses(); // Update the displayed courses for the new page
 }
 
 ngAfterViewInit(): void {
@@ -111,4 +134,82 @@ handleDelete(courseId: string): void {
     }
   );
 }
+
+
+
+editCourse(course: any) {
+  // Store the original data before editing starts
+  course.originalData = { 
+    title: course.title, 
+    description: course.description, 
+    image: course.image, 
+    duration: course.duration, 
+    lectures: course.lectures, 
+    price: course.price 
+  };
+
+  // Set isEditing to true so that the inputs are shown for editing
+  course.isEditing = true;
+}
+
+// Save course
+saveCourse(course: any) {
+  const formData = new FormData();
+  
+  // Append the course data
+  formData.append('title', course.title);
+  formData.append('description', course.description);
+  formData.append('duration', course.duration);
+  formData.append('lectures', course.lectures);
+  formData.append('price', course.price);
+  
+  // If a new image is selected, append it to FormData
+  if (course.selectedFile) {
+    formData.append('image', course.selectedFile, course.selectedFile.name); // the second argument is the file's name
+  }
+  
+  // Send the FormData to the backend
+  this.courseService.updateCourse(course._id, formData).subscribe(
+    (response) => {
+      console.log('Course updated successfully:', response);
+      course.isEditing = false;  // Exit editing mode
+    },
+    (error) => {
+      console.error('Error updating course:', error);
+      alert('Failed to update course. Please try again.');
+    }
+  );
+}
+
+// Cancel editing and restore original data
+cancelEdit(course: any) {
+  // Restore the original data and exit editing mode
+  course.title = course.originalData.title;
+  course.description = course.originalData.description;
+  course.image = course.originalData.image;
+  course.duration = course.originalData.duration;
+  course.lectures = course.originalData.lectures;
+  course.price = course.originalData.price;
+
+  course.isEditing = false;  // Exit editing mode
+}
+
+
+
+  // // Handle image change when the user selects a new image
+  onImageChange(event: any, course: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      // Store the file in the course object
+      course.selectedFile = file;
+      
+      // Optionally, show a preview of the selected image
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        course.imagePreview = e.target.result;  // This holds the image preview URL
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
 }

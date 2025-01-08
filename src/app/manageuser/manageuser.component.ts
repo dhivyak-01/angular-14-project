@@ -11,10 +11,10 @@ declare var bootstrap: any;
 export class ManageuserComponent implements OnInit, AfterViewInit {
 
   users: any[] = [];  // Array to hold the users data
-  totalPages: number = 0;              // Total number of pages
-  currentPage: number = 1;            // Current page number
-  pageSize: number = 5;               // Number of items per page
-  pagedBanners: any[] = []; 
+  pagedUsers: any[] = [];          // Array to hold users for the current page
+  totalUsers: number = 0;          // Total number of users
+  currentPage: number = 1;         // Current page number
+  pageSize: number = 5;                // Number of items per page 
   selectedIds: string[] = [];
   selectedUser: any = null;
   vieweduser: any = null;
@@ -29,13 +29,29 @@ export class ManageuserComponent implements OnInit, AfterViewInit {
   loadUsers(): void {
     this.registerService.getAllUsers().subscribe(
       (response) => {
-        this.users = response;  // Store the list of users in the component's 'users' array
+        this.users = response;                // Store all users
+        this.totalUsers = this.users.length;  // Set total number of users
+        this.updatePagedUsers();              // Display the first page of users
       },
       (error) => {
         console.error('Error fetching users:', error);  // Handle any errors
       }
     );
   }
+
+  // Update users for the current page
+  updatePagedUsers(): void {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.pagedUsers = this.users.slice(startIndex, endIndex); // Slice users array for the current page
+  }
+
+  // Handle page changes
+  loadPage(page: number): void {
+    this.currentPage = page;  // Update current page
+    this.updatePagedUsers();  // Update the displayed users for the new page
+  }
+
 
   handleSelect(userId: string) {
     if (this.selectedIds.includes(userId)) {

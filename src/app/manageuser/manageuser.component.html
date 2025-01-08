@@ -29,7 +29,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of users">
+      <tr *ngFor="let user of  pagedUsers">
         <td>
           <input
             type="checkbox"
@@ -107,7 +107,12 @@
 
   <!-- Pagination Controls -->
   <div class="d-flex justify-content-center mt-3">
-    <ngb-pagination> </ngb-pagination>
+    <ngb-pagination
+      [collectionSize]="totalUsers"
+      [(page)]="currentPage"
+      [pageSize]="pageSize"
+      (pageChange)="loadPage($event)">
+    </ngb-pagination>
   </div>
 
   <div

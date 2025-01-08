@@ -11,20 +11,61 @@ declare var bootstrap: any;
 export class AdminbookingsComponent implements OnInit, AfterViewInit {
   selectedOrder: any = null;
   orders: any[] = [];
+  pagedOrders: any[] = [];       // Array to store paginated orders
+  totalPages: number = 0;        // Total number of pages
+  currentPage: number = 1;       // Current page number
+  pageSize: number = 5;          // Number of items per page
+
+
   constructor(private ordersService: GetallOrdersService) {}
 
+  // ngOnInit(): void {
+  //   this.ordersService.getOrders().subscribe(
+  //     data => {
+  //       this.orders = data;
+  //       console.log("all data",data);
+        
+  //     },
+  //     error => {
+  //       console.error('Error fetching orders:', error);
+  //     }
+  //   );
+  // }
+
+
   ngOnInit(): void {
+    this.loadOrders(); // Load orders when the component initializes
+  }
+
+  // Load all orders and calculate pagination
+  loadOrders(): void {
     this.ordersService.getOrders().subscribe(
       data => {
         this.orders = data;
-        console.log("all data",data);
-        
+        this.totalPages = Math.ceil(this.orders.length / this.pageSize); // Calculate total pages
+        this.updatePagedOrders(); // Display orders for the first page
+        console.log("All orders:", data);
       },
       error => {
         console.error('Error fetching orders:', error);
       }
     );
   }
+
+  // Update the paginated orders based on the current page
+  updatePagedOrders(): void {
+    const startIndex = (this.currentPage - 1) * this.pageSize; // Calculate start index
+    const endIndex = startIndex + this.pageSize;               // Calculate end index
+    this.pagedOrders = this.orders.slice(startIndex, endIndex); // Slice orders array for current page
+  }
+
+  // Handle page changes
+  loadPage(page: number): void {
+    this.currentPage = page; // Update current page
+    this.updatePagedOrders(); // Update displayed orders
+  }
+
+
   handleView(course: any) {
     this.selectedOrder = course;  // Assign the selected course to viewedcourse
     console.log('Viewing course:', this.selectedOrder);  // Log the viewedcourse object

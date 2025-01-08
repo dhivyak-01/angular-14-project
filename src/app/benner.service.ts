@@ -28,4 +28,9 @@ export class BennerService {
   updateBanner(bannerId: string, updatedData: FormData): Observable<any> {
     return this.http.put(`http://localhost:3000/api/banner/${bannerId}`, updatedData);
   }
+  
+  getBannerById(bannerId: string): Observable<any> {
+    return this.http.get<any>(`http://localhost:3000/api/banner/${bannerId}`);
+  }
+
 }

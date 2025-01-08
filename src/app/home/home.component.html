@@ -1,18 +1,23 @@
-<div class="section slider-section">
+ <div class="section slider-section">
     <!-- Slider Shape Start -->
     <div class="slider-shape">
       <img class="shape-1 animation-round" src="assets/images/shape-8.png" alt="Shape">
     </div>
     <!-- Slider Shape End -->
-  
-    <div class="container">
+    <!-- Error message if something goes wrong while fetching the banner -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <div class="container" *ngIf="isBannerVisible && banner">
   
       <!-- Slider Content Start -->
       <div class="slider-content">
-        <h4 class="sub-title">Start your favourite course</h4>
-        <h2 class="main-title">Now learning from anywhere, and build your <span>bright career.</span></h2>
-        <p>It has survived not only five centuries but also the leap into electronic typesetting.</p>
-        <a class="btn btn-primary btn-hover-dark" href="#">Start A Course</a>
+        <h4 class="sub-title">{{ banner. title }}</h4>
+        <!-- <h2 class="main-title">{{ banner.description }}</h2> -->
+        <h2 class="main-title" [innerHTML]="banner.description"></h2>
+        <p>{{ banner.content }}</p>
+        <a class="btn btn-primary btn-hover-dark" href="#">{{ banner.caption }}</a>
       </div>
       <!-- Slider Content End -->
   
@@ -54,11 +59,57 @@
     <!-- Slider Images Start -->
     <div class="slider-images">
       <div class="images">
-        <img src="assets/images/slider-1.webp" alt="Slider">
+        <img [src]="'http://localhost:3000/'+banner.image" alt="{{ banner.title }}" />
       </div>
     </div>
    
+    <!-- Optional: Message when banner is not enabled or not found -->
+    <div *ngIf="!isBannerVisible && banner">
+      <p>The banner is disabled and will not be displayed.</p>
+    </div>
+
+
   </div>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Error message if something goes wrong while fetching the banner -->
+<!-- <div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div> -->
+
+<!-- Banner section -->
+<!-- <div *ngIf="isBannerVisible && banner" class="banner">
+  <h2>{{ banner.title }}</h2>
+   alt="{{ banner.title }}" />
+  <p>{{ banner.description }}</p>Now learning from anywhere, and build your <span>bright career.</span>
+</div> -->
+
+<!-- Optional: Message when banner is not enabled or not found -->
+<!-- <div *ngIf="!isBannerVisible && banner">
+  <p>The banner is disabled and will not be displayed.</p>
+</div> -->
+
+
+
+
+
+
+
+
 
 
 

@@ -13,17 +13,15 @@
       </div>
     </div>
     
-   
-
 
     <table class="table table-striped table-bordered table-hover" style="margin-top: 47px;">
       <thead class="table-header">
         <tr>
           <th>Id</th>
-          <th>Title</th>
-          <th>Description</th>
-          <th style="width: 20%;">Image</th>
-          <th>Content</th>
+          <th style="width: 15%;">Title</th>
+          <th style="width: 15%;">Description</th>
+          <th style="width: 10%;">Image</th>
+          <th style="width: 15%;">Content</th>
           <th>Caption</th>
           <th>Status</th>
           <th>Action</th>
@@ -85,15 +83,15 @@
           </td>
   
           <td>
-            <button class="btn btn-secondary" (click)="handleView(banner)" data-bs-toggle="modal" data-bs-target="#courseModal" >View</button>
+            <button class="btn btn-secondary" (click)="handleView(banner)" data-bs-toggle="modal" data-bs-target="#courseModal" >view</button>
             <!-- Edit button -->
             <button *ngIf="!(selectedBanner && selectedBanner._id === banner._id)" class="btn btn-primary" (click)="handleEdit(banner)" style="margin-left: 5px;">
-              Edit
+             Edit
             </button>
   
             <!-- Save button after editing -->
             <button *ngIf="selectedBanner && selectedBanner._id === banner._id" class="btn btn-success" (click)="saveUpdate()">
-              Save
+             Save
             </button>
   
             <!-- Delete button -->

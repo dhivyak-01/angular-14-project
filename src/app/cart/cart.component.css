@@ -82,6 +82,10 @@
     z-index: 1064 !important; 
 }
 
+/* .modal.fade {
+  transition: opacity 2s ease-out;
+} */
+
 /* Ensure the backdrop stays behind the modal */
 body .modal-backdrop {
   display: none !important;

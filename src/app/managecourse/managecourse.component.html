@@ -32,34 +32,65 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let course of courses.products">
+        <tr *ngFor="let course of pagedCourses">
           <td>
             <input 
               type="checkbox" 
               [checked]="selectedIds.includes(course._id)" 
               (change)="handleSelect(course._id)" />
           </td>
-          <td>{{ course.title }}</td>
-          <td><img [src]="'http://localhost:3000/' + course.image" [alt]="course.title"></td>
-          <td>{{ course.description }}</td>
-          <td>{{ course.duration }}</td>
-          <td>{{ course.lectures }}</td>
-          <td>{{ course.price }}</td>
           <td>
-            <button class="btn btn-primary" (click)="handleView(course)" data-bs-toggle="modal" data-bs-target="#courseModal">View</button>
-            <button class="btn btn-danger" (click)="handleDelete(course._id)" style="margin-left: 5px;">
-                Delete
-              </button>
+            <span *ngIf="!course.isEditing">{{ course.title }}</span>
+            <input *ngIf="course.isEditing" [(ngModel)]="course.title" class="form-control" />
+          </td>
+          <td>
+            <!-- For image, we use a file input with the change event -->
+            <input 
+            *ngIf="course.isEditing" 
+            type="file" 
+            (change)="onImageChange($event, course)" 
+            class="form-control" 
+          />
+          
+          <!-- Display the image preview if course is being edited -->
+          <img *ngIf="course.isEditing && course.imagePreview" [src]="course.imagePreview" width="100" />
+          
+          <!-- Display the existing image when not editing -->
+          <img *ngIf="!course.isEditing" [src]="'http://localhost:3000/' + course.image" [alt]="course.title" width="100">
+          </td>
+          <td>
+            <span *ngIf="!course.isEditing">{{ course.description }}</span>
+            <textarea *ngIf="course.isEditing" [(ngModel)]="course.description" class="form-control"></textarea>
+          </td>
+          <td>
+            <span *ngIf="!course.isEditing">{{ course.duration }}</span>
+            <input *ngIf="course.isEditing" [(ngModel)]="course.duration" class="form-control" />
+          </td>
+          <td>
+            <span *ngIf="!course.isEditing">{{ course.lectures }}</span>
+            <input *ngIf="course.isEditing" [(ngModel)]="course.lectures" class="form-control" />
+          </td>
+          <td>
+            <span *ngIf="!course.isEditing">{{ course.price }}</span>
+            <input *ngIf="course.isEditing" [(ngModel)]="course.price" class="form-control" />
+          </td>
+          <td>
+            <button *ngIf="!course.isEditing" class="btn btn-primary" (click)="editCourse(course)">Edit</button>
+            <button *ngIf="course.isEditing" class="btn btn-success" (click)="saveCourse(course)">Save</button>
+            <button *ngIf="course.isEditing" class="btn btn-secondary" (click)="cancelEdit(course)">Cancel</button>
+            <button class="btn btn-danger" (click)="handleDelete(course._id)" style="margin-left: 5px;">Delete</button>
           </td>
         </tr>
       </tbody>
     </table>
    
+    <!-- Pagination -->
     <div class="d-flex justify-content-center mt-3">
-      <ngb-pagination 
-        [collectionSize]="totalPages" 
-        [(page)]="currentPage" 
-        [pageSize]="1">
+      <ngb-pagination
+        [collectionSize]="totalCourses"  
+        [(page)]="currentPage"           
+        [pageSize]="pageSize"           
+        (pageChange)="loadPage($event)">  
       </ngb-pagination>
     </div>
   

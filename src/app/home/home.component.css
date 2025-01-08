@@ -145,10 +145,13 @@ img {
     margin-bottom: 0;
     width: 81%;
 }
-.slider-content .main-title span {
-    color: #309255;
+
+
+::ng-deep .highlight {
+    color: #309255 !important; /* Greenish color */
     position: relative;
-}
+  }
+
 
 .slider-content .main-title span:before {
     position: absolute;
@@ -398,10 +401,10 @@ p:last-child {
  
   .btn {
     position: relative;
-    padding-top: 17px;
+    padding-top: 14px;
     z-index: 2;
     overflow: hidden;
-    width: 135px;
+    width: 179px;
     height: 52px;
     border-radius: 10px;
 }

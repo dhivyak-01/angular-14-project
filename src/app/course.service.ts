@@ -14,12 +14,19 @@ export class CourseService {
   constructor(private http: HttpClient) {}
 
   // Method to get all courses
-  getCourses(): Observable<any> {
-    return this.http.get<any>(this.apiUrl);  // Returns the courses data from your backend
+  // getCourses(page: number = 1, limit: number = 10): Observable<any> {
+  //   return this.http.get<any>(this.apiUrl);  // Returns the courses data from your backend
+  // }
+  getProducts(): Observable<any> {
+    return this.http.get<any>(this.apiUrl);  // No query parameters for price filtering
   }
-
 
   deleteCourse(courseId: string): Observable<any> {
     return this.http.delete(`http://localhost:3000/api/products/${courseId}`);
+  }
+
+
+  updateCourse(courseId: string, formData: FormData): Observable<any> {
+    return this.http.put(`http://localhost:3000/api/products/${courseId}`, formData);
   }
 }
