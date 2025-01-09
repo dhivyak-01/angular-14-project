@@ -67,15 +67,12 @@ export class CartComponent implements OnInit, AfterViewInit {
     }
   }
   
+
   populateProducts(): void {
     this.order.products = this.cartItems.map(item => {
-      // Log the values for each product
-      console.log('productId:', item.courseId);
-      console.log('image:', item.image);
-      console.log('quantity:', item.quantity || 1);  // Default to 1 if quantity is undefined
-  
       return {
         productId: item.courseId,
+        name: item.name,       // Include product name
         image: item.image,
         quantity: item.quantity || 1
       };
@@ -104,7 +101,7 @@ export class CartComponent implements OnInit, AfterViewInit {
         this.modal.show();  // Show the modal
       }
     } else {
-      alert('You need to log in to place an order.');
+      // alert('You need to log in to place an order.');
       this.router.navigate(['/login']);
     }
   }
@@ -129,6 +126,7 @@ export class CartComponent implements OnInit, AfterViewInit {
       this.orderService.placeOrder(orderPayload).subscribe(
         (response) => {
           alert('Order placed successfully');
+          this.router.navigate(['/home']);
           orderForm.reset();
           this.order = {
             name: '',

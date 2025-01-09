@@ -18,11 +18,12 @@ const upload = multer({ storage: storage });
 
 // Route to handle product creation with file upload
 router.post('/products', upload.single('image'), async (req, res) => {
-  const { title, description, duration, lectures, price } = req.body;
+  const { name, title, description, duration, lectures, price } = req.body;
   const image = req.file ? req.file.path : null; // The file path of the uploaded image
 
   try {
     const newProduct = new Product({
+      name,
       title,
       description,
       image, // Save the file path in the database
@@ -62,36 +63,6 @@ router.get('/products', async (req, res) => {
     return res.status(500).json({ error: 'Failed to fetch products. Please try again later.' });
   }
 });
-
-// router.get('/products', async (req, res) => {
-//   const { page = 1, limit = 10, priceMin, priceMax } = req.query;
-
-//   try {
-//     const filter = {};
-
-//     // Add price range filter if provided
-//     if (priceMin && priceMax) {
-//       filter.price = { $gte: priceMin, $lte: priceMax };
-//     }
-
-//     // Fetch products without sorting, just using pagination
-//     const products = await Product.find(filter)
-//       .skip((page - 1) * limit)
-//       .limit(Number(limit));
-
-//     const totalProducts = await Product.countDocuments(filter);
-
-//     return res.status(200).json({
-//       products,
-//       total: totalProducts,
-//       page,
-//       limit: Number(limit)
-//     });
-//   } catch (error) {
-//     console.error(error);
-//     return res.status(500).json({ error: 'Failed to fetch products. Please try again later.' });
-//   }
-// });
 
 
 router.delete('/products/:id', async (req, res) => {

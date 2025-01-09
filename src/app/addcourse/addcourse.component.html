@@ -19,6 +19,13 @@
   
                 <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
                   <div class="single-form">
+                    <label for="name">Product Name</label>
+                    <input type="text" id="name" class="form-control" formControlName="name" />
+                      <div *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched" class="text-danger">
+                        Name is required.
+                      </div>
+                  </div>
+                  <div class="single-form">
                     <label for="title">Product Title</label>
                     <input type="text" id="title" class="form-control" formControlName="title" />
                       <div *ngIf="productForm.get('title')?.invalid && productForm.get('title')?.touched" class="text-danger">

@@ -24,7 +24,6 @@ import { AdminbookingsComponent } from './adminbookings/adminbookings.component'
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalComponent } from './modal/modal.component';
 import { CartComponent } from './cart/cart.component';
 import { ManagebannerComponent } from './managebanner/managebanner.component';
 import { ManageuserComponent } from './manageuser/manageuser.component';
@@ -44,7 +43,6 @@ import { AdduserComponent } from './adduser/adduser.component';
     DashboardComponent,
     BannerComponent,
     AdminbookingsComponent,
-    ModalComponent,
     CartComponent,
     ManagebannerComponent,
     ManageuserComponent,

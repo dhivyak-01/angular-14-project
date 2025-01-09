@@ -19,30 +19,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  // onSubmit(): void {
-  //   // Check if username and password are provided
-  //   if (this.user.username && this.user.password) {
-  //     this.authService.login(this.user.username, this.user.password).subscribe(
-  //       (response) => {
-  //         console.log('Login successful', response);
-          
-  //         // Store token and userId dynamically after successful login
-  //         this.authService.saveTokenAndUserId(response);
-          
-  //         // Redirect to the courses page (or any desired page)
-  //         this.router.navigate(['/cart']);  
-  //       },
-  //       (error) => {
-  //         console.error('Login failed', error);
-  //         this.errorMessage = 'Invalid username or password. Please try again.';  // Show error message if login fails
-  //       }
-  //     );
-  //   } else {
-  //     this.errorMessage = 'Username and password are required!';  // Handle missing credentials
-  //   }
-  // }
-
-
+  
   
   onSubmit(): void {
     if (!this.user.email || !this.user.password) {

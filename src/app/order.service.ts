@@ -7,6 +7,7 @@ import { AuthService } from './auth.service';
 
 interface Product {
   productId: string;
+  name: string;
   image: string;
   quantity: number;
   _id: string;
@@ -48,7 +49,8 @@ interface CartItem {
   price: number;       
   quantity: number;    
   title: string;      
-  image?: string;      
+  image?: string;
+  name:string,      
   description?: string; 
   duration?: string;   
   lectures?: number;

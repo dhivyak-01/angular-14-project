@@ -59,6 +59,7 @@ export class CourseComponent implements OnInit, AfterViewInit {
     // Add course to cart without userId
     this.cartService.addToCart({
       courseId: course._id,
+      name: course.name,
       title: course.title,
       price: course.price,
       description: course.description,

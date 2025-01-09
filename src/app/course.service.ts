@@ -13,10 +13,7 @@ export class CourseService {
 
   constructor(private http: HttpClient) {}
 
-  // Method to get all courses
-  // getCourses(page: number = 1, limit: number = 10): Observable<any> {
-  //   return this.http.get<any>(this.apiUrl);  // Returns the courses data from your backend
-  // }
+  
   getProducts(): Observable<any> {
     return this.http.get<any>(this.apiUrl);  // No query parameters for price filtering
   }

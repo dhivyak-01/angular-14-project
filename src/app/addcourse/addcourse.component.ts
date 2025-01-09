@@ -16,6 +16,7 @@ export class AddcourseComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.productForm = this.fb.group({
+      name: ['', Validators.required],
       title: ['', Validators.required],
       description: ['', Validators.required],
       image: [null, Validators.required], // updated formControlName for image
@@ -45,6 +46,7 @@ export class AddcourseComponent implements OnInit {
   onSubmit() {
     if (this.productForm.valid) {
       const formData = new FormData();
+      formData.append('name', this.productForm.get('name')?.value);
       formData.append('title', this.productForm.get('title')?.value);
       formData.append('description', this.productForm.get('description')?.value);
       formData.append('image', this.selectedFile as File);

@@ -87,6 +87,7 @@ onBookNow(course: any): void {
   // Add course to cart without userId
   this.cartService.addToCart({
     courseId: course._id,
+    name: course.name,
     title: course.title,
     price: course.price,
     description: course.description,
@@ -95,6 +96,6 @@ onBookNow(course: any): void {
     lectures: course.lectures
   });
 
-  console.log('Added course to cart:', course);
+  console.log('Added course to cart from :', course);
 }
 }
