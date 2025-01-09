@@ -71,33 +71,32 @@ const registerUser = async (req, res) => {
 
 // Login a user
 const loginUser = async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  if (!username || !password) {
-    return res.status(400).json({ error: "Username and password are required." });
+  if (!email || !password) {
+    return res.status(400).json({ error: "Email and password are required." });
   }
 
   try {
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).json({ error: "Invalid username or password." });
+      return res.status(401).json({ error: "User not found. Please register." });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(401).json({ error: "Invalid username or password." });
+      return res.status(401).json({ error: "Invalid email or password." });
     }
 
-
     const token = jwt.sign(
-        { userId: user._id, role: user.role }, 
-        process.env.JWT_SECRET, 
-        { expiresIn: process.env.JWT_EXPIRATION }
-      );
+      { userId: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRATION }
+    );
 
     return res.status(200).json({
       token,
-      expiresIn: 3600, // 1 hour in seconds
+      expiresIn: 3600,  // 1 hour in seconds
       userId: user._id,
       role: user.role,
       name: user.username,

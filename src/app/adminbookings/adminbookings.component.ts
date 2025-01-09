@@ -41,7 +41,7 @@ export class AdminbookingsComponent implements OnInit, AfterViewInit {
   loadOrders(): void {
     this.ordersService.getOrders().subscribe(
       data => {
-        this.orders = data;
+        this.orders = data.reverse();
         this.totalPages = Math.ceil(this.orders.length / this.pageSize); // Calculate total pages
         this.updatePagedOrders(); // Display orders for the first page
         console.log("All orders:", data);

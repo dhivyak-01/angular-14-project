@@ -44,4 +44,6 @@ export class AppComponent {
     this.authService.logout();  // Call the logout method from AuthService
     this.router.navigate(['/login']);  // Optionally, redirect to the login page after logout
   }
+
+  
 }

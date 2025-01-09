@@ -17,21 +17,21 @@
               <h3 class="title">Login <span>Now</span></h3>
   
               <div class="form-wrapper">
-                <!-- Display error message if login fails -->
-                <div *ngIf="errorMessage" class="alert alert-danger">
-                  {{ errorMessage }}
-                </div>
+                 <!-- Display error message if login fails -->
+            <div *ngIf="errorMessage" class="alert alert-danger">
+              {{ errorMessage }}
+            </div>
   
                 <!-- Login Form -->
                 <form (ngSubmit)="onSubmit()">
                   <div class="single-form">
                     <input
-                      type="text"
-                      placeholder="Username"
-                      [(ngModel)]="user.username"
-                      name="username"
-                      required
-                    />
+                  type="email"
+                  placeholder="Email"
+                  [(ngModel)]="user.email"
+                  name="email"
+                  required
+                />
                   </div>
                   <div class="single-form">
                     <input
@@ -46,7 +46,7 @@
                     <button
                       type="submit"
                       class="btn btn-primary btn-hover-dark w-100"
-                      [disabled]="!user.username || !user.password"
+                      [disabled]="!user.email || !user.password"
                     >
                       Login
                     </button>

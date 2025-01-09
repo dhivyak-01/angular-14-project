@@ -13,8 +13,8 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   
-  login(username: string, password: string): Observable<any> {
-    return this.http.post(this.apiUrl, { username, password });
+  login(email: string, password: string): Observable<any> {
+    return this.http.post(this.apiUrl, { email, password });
   }
 
    // Store the token and user ID in localStorage after successful login
