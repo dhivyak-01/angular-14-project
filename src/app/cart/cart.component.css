@@ -64,7 +64,7 @@
     font-size: 16px;
   }
   
-  .courses-wrapper .courses-price-review button {
+  .booknowbtn {
     padding: 10px 20px;
     font-size: 14px;
     background-color: #28a745;
@@ -72,9 +72,11 @@
     color: white;
     border-radius: 4px;
     cursor: pointer;
+    width: 44%;
+    margin-left: 29%;
   }
   
-  .courses-wrapper .courses-price-review button:hover {
+  .booknowbtn:hover {
     background-color: #218838;
   }
   
@@ -90,3 +92,10 @@
 body .modal-backdrop {
   display: none !important;
 }
+
+/* .booknowbtn{
+margin-left: 38%;
+    margin-bottom: 13%;
+    width: 25%;
+    }
+     */

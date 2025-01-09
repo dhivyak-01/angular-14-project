@@ -1,15 +1,16 @@
  <div class="section slider-section">
+    <!-- Error message if something goes wrong while fetching the banner -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+    <div *ngIf="isBannerVisible && banner">
     <!-- Slider Shape Start -->
     <div class="slider-shape">
       <img class="shape-1 animation-round" src="assets/images/shape-8.png" alt="Shape">
     </div>
     <!-- Slider Shape End -->
-    <!-- Error message if something goes wrong while fetching the banner -->
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
-    </div>
-
-    <div class="container" *ngIf="isBannerVisible && banner">
+ 
+    <div class="container" >
   
       <!-- Slider Content Start -->
       <div class="slider-content">
@@ -62,7 +63,7 @@
         <img [src]="'http://localhost:3000/'+banner.image" alt="{{ banner.title }}" />
       </div>
     </div>
-   
+   </div>
     <!-- Optional: Message when banner is not enabled or not found -->
     <div *ngIf="!isBannerVisible && banner">
       <p>The banner is disabled and will not be displayed.</p>
@@ -71,48 +72,6 @@
 
   </div>
  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- Error message if something goes wrong while fetching the banner -->
-<!-- <div *ngIf="errorMessage" class="error-message">
-  {{ errorMessage }}
-</div> -->
-
-<!-- Banner section -->
-<!-- <div *ngIf="isBannerVisible && banner" class="banner">
-  <h2>{{ banner.title }}</h2>
-   alt="{{ banner.title }}" />
-  <p>{{ banner.description }}</p>Now learning from anywhere, and build your <span>bright career.</span>
-</div> -->
-
-<!-- Optional: Message when banner is not enabled or not found -->
-<!-- <div *ngIf="!isBannerVisible && banner">
-  <p>The banner is disabled and will not be displayed.</p>
-</div> -->
-
-
-
-
-
-
-
-
-
-
-
 
 
 <div class="tab-pane fade show active" id="tabs1">
