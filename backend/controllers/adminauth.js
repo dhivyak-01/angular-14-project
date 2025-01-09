@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const Admin = require('../models/admin');  // Assuming you have an Admin model
+const Admin = require('../models/admin');  
 const { JWT_SECRET, JWT_EXPIRATION } = require('../config/config');
 
 // Admin Login
