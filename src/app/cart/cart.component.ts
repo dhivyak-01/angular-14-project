@@ -15,6 +15,7 @@ export class CartComponent implements OnInit, AfterViewInit {
 
   cartItems: any[] = [];
   isModalOpen: boolean = false; 
+  
 
   order: any = {
     name: '', 
@@ -31,7 +32,7 @@ export class CartComponent implements OnInit, AfterViewInit {
     products: [],
     totalAmount: 0
   };
-
+  private modal: any;
   constructor(
     private cartService: CartService,
     private http: HttpClient,
@@ -50,18 +51,21 @@ export class CartComponent implements OnInit, AfterViewInit {
     this.order.phoneNumber = this.authService.getPhoneNumber();
   }
 
+  
   ngAfterViewInit(): void {
     // Access the modal element
     const modalElement = document.getElementById('orderModal');
-    
+  
     if (modalElement) {
       // Initialize the modal with backdrop set to 'false'
       const modal = new bootstrap.Modal(modalElement, {
-        backdrop: false // This disables the backdrop
+        backdrop: false  // This disables the backdrop
       });
+  
+      // Store the modal instance in a variable for future use
+      this.modal = modal;
     }
   }
-
   
   populateProducts(): void {
     this.order.products = this.cartItems.map(item => {
@@ -92,69 +96,40 @@ export class CartComponent implements OnInit, AfterViewInit {
     );
   }
 
-   // Submit the order to the server
-  //  submitOrder(orderForm: any): void {
-  //   if (orderForm.valid) {
-  //     const userId = this.authService.getUserId(); // Get userId from AuthService (localStorage)
 
-  //     // Construct the order payload with the additional user info
-  //     const orderPayload = {
-  //       userId,
-  //       name: this.order.name,
-  //       phoneNumber: this.order.phoneNumber,
-  //       image: this.order.image,
-  //       products: this.order.products,
-  //       shippingAddress: this.order.shippingAddress,
-  //       paymentMethod: this.order.paymentMethod,
-  //       totalAmount: this.order.totalAmount
-  //     };
-  //     console.log('Order orderPayload cart page', orderPayload);
-
-  //     // Use OrderService to place the order
-  //     this.orderService.placeOrder(orderPayload).subscribe(
-  //       (response) => {
-  //         // Success response
-  //         alert('Order placed successfully');
-  //         console.log('Order placed successfully', response);
-  //         // this.router.navigate(['/order-success']);  // Redirect to a success page
-  //       },
-  //       (error) => {
-  //         // Error response
-  //         console.error('Error placing order', error);
-  //       }
-  //     );
-  //   }
-  // }
-
+  onBookNowClick(): void {
+    if (this.authService.isLoggedIn()) {
+      // Show the modal programmatically
+      if (this.modal) {
+        this.modal.show();  // Show the modal
+      }
+    } else {
+      alert('You need to log in to place an order.');
+      this.router.navigate(['/login']);
+    }
+  }
 
   submitOrder(orderForm: any): void {
     if (orderForm.valid) {
-      const userId = this.authService.getUserId(); // Get userId from AuthService (localStorage)
-  
-      // Construct the order payload with the additional user info
+      const userId = this.authService.getUserId();
+      const name = this.authService.getName();
+      const phoneNumber = this.authService.getPhoneNumber();
+     
       const orderPayload = {
         userId,
-        name: this.order.name,
-        phoneNumber: this.order.phoneNumber,
+        name,
+        phoneNumber,
         image: this.order.image,
         products: this.order.products,
         shippingAddress: this.order.shippingAddress,
         paymentMethod: this.order.paymentMethod,
         totalAmount: this.order.totalAmount
       };
-      console.log('Order orderPayload cart page', orderPayload);
-  
-      // Use OrderService to place the order
+
       this.orderService.placeOrder(orderPayload).subscribe(
         (response) => {
-          // Success response
           alert('Order placed successfully');
-          console.log('Order placed successfully', response);
-  
-          // Clear the form after successful submission
-          orderForm.reset();  // Reset the form fields
-  
-          // Clear the order object
+          orderForm.reset();
           this.order = {
             name: '',
             phoneNumber: '',
@@ -170,19 +145,14 @@ export class CartComponent implements OnInit, AfterViewInit {
             products: [],
             totalAmount: 0
           };
-  
           // Close the modal (use bootstrap modal to close)
           const modalElement = document.getElementById('orderModal');
           if (modalElement) {
             const modal = bootstrap.Modal.getInstance(modalElement);
             modal.hide();  // Close the modal
           }
-  
-          // Optionally, redirect to a success page
-          // this.router.navigate(['/order-success']);
         },
         (error) => {
-          // Error response
           console.error('Error placing order', error);
         }
       );

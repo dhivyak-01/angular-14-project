@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
+import { AuthService } from './auth.service'; 
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,7 @@ export class AppComponent {
 
   isAdminPage: boolean = false;  // This flag will decide whether navbar is shown
   isBookingsPage: boolean = false;
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
+  constructor(private router: Router, private activatedRoute: ActivatedRoute,private authService: AuthService) {}
 
   ngOnInit() {
     // Listen to router events to detect route changes
@@ -37,5 +38,10 @@ export class AppComponent {
       }
     });
 
+  }
+
+  onLogout(): void {
+    this.authService.logout();  // Call the logout method from AuthService
+    this.router.navigate(['/login']);  // Optionally, redirect to the login page after logout
   }
 }

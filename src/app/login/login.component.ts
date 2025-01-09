@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';  // Import the AuthService
 import { Router } from '@angular/router'; 
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -29,7 +30,7 @@ export class LoginComponent implements OnInit {
           this.authService.saveTokenAndUserId(response);
           
           // Redirect to the courses page (or any desired page)
-          this.router.navigate(['/course']);  
+          this.router.navigate(['/cart']);  
         },
         (error) => {
           console.error('Login failed', error);

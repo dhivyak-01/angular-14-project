@@ -1,64 +1,79 @@
-
-
- <div class="header-section" [ngClass]="{'header-section-bookings': isBookingsPage}">
-  <div class="header-main" *ngIf="!isAdminPage" [ngClass]="{'sticky': isSticky}">
-    <div class="container" >
-      <nav class="header-main-wrapper navbar-expand-lg navbar-light "  [ngClass]="{
-        'sticky-wrapper': isSticky, 
-        'normal-wrapper': !isSticky
-      }">
+<div
+  class="header-section"
+  [ngClass]="{ 'header-section-bookings': isBookingsPage }"
+>
+  <div
+    class="header-main"
+    *ngIf="!isAdminPage"
+    [ngClass]="{ sticky: isSticky }"
+  >
+    <div class="container">
+      <nav
+        class="header-main-wrapper navbar-expand-lg navbar-light"
+        [ngClass]="{
+          'sticky-wrapper': isSticky,
+          'normal-wrapper': !isSticky
+        }"
+      >
         <div class="header-logo">
-          <a routerLink="index.html"><img src="assets/images/logo.png" alt="Logo"></a>
+          <a routerLink="index.html"
+            ><img src="assets/images/logo.png" alt="Logo"
+          /></a>
         </div>
         <div>
-          <button class="navbar-toggler navbar-light d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <button
+            class="navbar-toggler navbar-light d-lg-none"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
             <span class="navbar-toggler-icon"></span>
           </button>
         </div>
-        <div class="header-menu collapse navbar-collapse " id="navbarSupportedContent">
+        <div
+          class="header-menu collapse navbar-collapse"
+          id="navbarSupportedContent"
+        >
           <div class="col">
-          <ul class="nav-menu">
-            <li [routerLinkActive]="['active']">
-              <a [routerLink]="['/home']" [routerLinkActive]="['active']">Home</a>
-            </li>
-            <li [routerLinkActive]="['active']">
-              <a [routerLink]="['/course']" [routerLinkActive]="['active']">All Course</a>
-            </li>
-            <li [routerLinkActive]="['active']">
-              <a [routerLink]="['/bookings']" [routerLinkActive]="['active']">My Bookings</a>
-            </li>
-            <li [routerLinkActive]="['active']">
-              <a [routerLink]="['/cart']" [routerLinkActive]="['active']">
-                <i class="fa fa-shopping-cart"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div class="header-sign-in-up d-lg-block">
-          <ul>
-            <li><a (click)="onLogout()" class="sign-in">Logout</a></li>
-            <li><a class="sign-in" [routerLink]="['/login']">Sign In</a></li>
-            <li><a class="sign-up" [routerLink]="['/register']">Sign Up</a></li>
-          </ul>
-        </div>
+            <ul class="nav-menu">
+              <li [routerLinkActive]="['active']">
+                <a [routerLink]="['/home']" [routerLinkActive]="['active']"
+                  >Home</a
+                >
+              </li>
+              <li [routerLinkActive]="['active']">
+                <a [routerLink]="['/course']" [routerLinkActive]="['active']"
+                  >All Course</a
+                >
+              </li>
+              <li [routerLinkActive]="['active']">
+                <a [routerLink]="['/bookings']" [routerLinkActive]="['active']"
+                  >My Bookings</a
+                >
+              </li>
+              <li [routerLinkActive]="['active']">
+                <a [routerLink]="['/cart']" [routerLinkActive]="['active']">
+                  <i class="fa fa-shopping-cart"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="header-sign-in-up d-lg-block">
+            <ul>
+              <li><a (click)="onLogout()" class="sign-in">Logout</a></li>
+              <li><a class="sign-in" [routerLink]="['/login']">Sign In</a></li>
+              <li>
+                <a class="sign-up" [routerLink]="['/register']">Sign Up</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>
     </div>
   </div>
-  
-  
-  
+
   <router-outlet></router-outlet>
-  </div> 
-
-
-
-
-
-
-
-
-
-
-
-
+</div>
