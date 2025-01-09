@@ -1,5 +1,4 @@
-<!-- src/app/register/register.component.html -->
-<div class="section section-padding">
+   <div class="section section-padding">
     <div class="container">
       <div class="register-login-wrapper">
         <div class="row align-items-center">
@@ -16,6 +15,13 @@
           <div class="col-lg-6">
             <div class="register-login-form">
               <h3 class="title">Registration <span>Now</span></h3>
+  
+              <!-- Display Error Messages -->
+              <div *ngIf="errorMessages.length > 0" class="alert alert-danger">
+                <ul>
+                  <li *ngFor="let message of errorMessages">{{ message }}</li>
+                </ul>
+              </div>
   
               <div class="form-wrapper">
                 <!-- Registration Form -->

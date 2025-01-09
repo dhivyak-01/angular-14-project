@@ -18,18 +18,18 @@ export class RegisterComponent implements OnInit {
     phoneNumber: '',
     dateOfBirth: ''
   };
-
+  errorMessages: string[] = []; 
   constructor(private registerService: RegisterService, private router: Router) {}
 
   
   onSubmit() {
+    this.errorMessages = [];  // Reset errors before new submission
     
     if (this.user.password !== this.user.confirmPassword) {
-      alert('Passwords do not match!');
+      this.errorMessages.push('Passwords do not match!');
       return;
     }
 
-    
     const registrationData = {
       username: this.user.username,
       password: this.user.password,  
@@ -40,17 +40,20 @@ export class RegisterComponent implements OnInit {
       dateOfBirth: this.user.dateOfBirth
     };
 
-    
     this.registerService.registerUser(registrationData).subscribe(
       response => {
         alert('Registration successful');
         console.log('Registration successful:', response);
-        
         this.router.navigate(['/login']);
       },
       error => {
         console.error('Error during registration:', error);
-        alert('Registration failed. Please try again.');
+        
+        if (error.error && error.error.error) {
+          this.errorMessages.push(error.error.error);  // Capture backend error message
+        } else {
+          this.errorMessages.push('Registration failed. Please try again.');
+        }
       }
     );
   }

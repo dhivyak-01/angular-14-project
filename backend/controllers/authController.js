@@ -33,7 +33,7 @@ const registerUser = async (req, res) => {
   }
 
   if (phoneNumber && !/^\d{10}$/.test(phoneNumber)) {
-    return res.status(400).json({ error: "Invalid phone number format. Use 123-456-7890." });
+    return res.status(400).json({ error: "Invalid phone number format. Use 1234567890." });
   }
 
   if (dateOfBirth && !moment(dateOfBirth, 'YYYY-MM-DD', true).isValid()) {
